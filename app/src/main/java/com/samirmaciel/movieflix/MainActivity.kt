@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.samirmaciel.movieflix.databinding.ActivityMainBinding
+import com.samirmaciel.movieflix.modules.home.HomeFragment
 import com.samirmaciel.movieflix.shared.model.Movie
 import com.samirmaciel.movieflix.shared.model.MovieApiInterface
 import com.samirmaciel.movieflix.shared.model.MovieApiService
@@ -24,12 +25,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
+        if(savedInstanceState == null){
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragmentContainer, HomeFragment())
+                .commitAllowingStateLoss()
+        }
+        
     }
 
     override fun onStart() {
         super.onStart()
+
 
         var list = MutableLiveData<List<Movie>>()
 
