@@ -1,11 +1,7 @@
 package com.samirmaciel.movieflix
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.samirmaciel.movieflix.databinding.ActivityMainBinding
 import com.samirmaciel.movieflix.modules.home.HomeFragment
 import com.samirmaciel.movieflix.shared.model.Movie
@@ -30,26 +26,14 @@ class MainActivity : AppCompatActivity() {
                 .add(R.id.fragmentContainer, HomeFragment())
                 .commitAllowingStateLoss()
         }
-        
+
     }
 
     override fun onStart() {
         super.onStart()
 
 
-        var list = MutableLiveData<List<Movie>>()
 
-        getMovieData { movies : List<Movie> ->
-            list.postValue(movies)
-        }
-
-
-
-        list.observe(this, Observer {
-            for (m in it){
-                Log.d("VAI", "title: " + m.title)
-            }
-        })
 
     }
 
@@ -57,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         val apiMovies = MovieApiService.getInstance().create(MovieApiInterface::class.java)
 
-        apiMovies.getMovies().enqueue(object : Callback<MovieResponse>{
+        apiMovies.getPopularMovies().enqueue(object : Callback<MovieResponse>{
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 return callback(response.body()!!.movies)
             }

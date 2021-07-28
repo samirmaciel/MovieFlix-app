@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 data class MovieResponse (
 
     @SerializedName("results")
-    val movies : List<Movie>
+    val movies : MutableList<Movie>
 
 
 ) : Parcelable{
