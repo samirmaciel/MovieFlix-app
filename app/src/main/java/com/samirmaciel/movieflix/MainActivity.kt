@@ -5,8 +5,8 @@ import android.os.Bundle
 import com.samirmaciel.movieflix.databinding.ActivityMainBinding
 import com.samirmaciel.movieflix.modules.home.HomeFragment
 import com.samirmaciel.movieflix.shared.model.Movie
-import com.samirmaciel.movieflix.shared.model.MovieApiInterface
-import com.samirmaciel.movieflix.shared.model.MovieApiService
+import com.samirmaciel.movieflix.shared.repository.MovieRepositoryInterface
+import com.samirmaciel.movieflix.shared.data.MovieApiService
 import com.samirmaciel.movieflix.shared.model.MovieResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getMovieData(callback: (List<Movie>) -> Unit){
 
-        val apiMovies = MovieApiService.getInstance().create(MovieApiInterface::class.java)
+        val apiMovies = MovieApiService.getInstance().create(MovieRepositoryInterface::class.java)
 
         apiMovies.getPopularMovies().enqueue(object : Callback<MovieResponse>{
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {

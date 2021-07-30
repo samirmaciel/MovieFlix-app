@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,297 +7,76 @@
     tools:context=".modules.home.HomeFragment">
 
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#9000"
-            android:translationZ="0.1dp"
-            app:elevation="0dp">
+            android:orientation="vertical">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways">
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="15dp"
+                android:text="Populares na MovieFlix"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:src="@drawable/mlogo"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="24dp"
-                        android:src="@drawable/ic_baseline_cast"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView"
-                        app:layout_constraintTop_toTopOf="@+id/imageView" />
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="24dp"
-                        android:src="@drawable/ic_baseline_search_24"
-                        app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
-                        app:layout_constraintEnd_toStartOf="@+id/materialCardView"
-                        app:layout_constraintTop_toTopOf="@+id/materialCardView" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/materialCardView"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_marginEnd="16dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.appcompat.widget.Toolbar>
-
-
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/popularRecycler"
                 android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginHorizontal="10dp"
+                tools:listitem="@layout/movie_recycler_item" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingVertical="15dp">
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="15dp"
+                android:text="Em alta"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="25dp"
-                    android:text="@string/series"
-                    android:textColor="@color/white"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="25dp"
-                    android:text="@string/movies"
-                    android:textColor="@color/white"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="25dp"
-                    android:text="@string/minha_lista"
-                    android:textColor="@color/white"
-                    android:textSize="15dp" />
-
-            </LinearLayout>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nestedScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/black"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/topraredRecycler"
                 android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginHorizontal="10dp"
+                tools:listitem="@layout/movie_recycler_item" />
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="15dp"
+                android:text="Filmes de terror"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/horrorRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginHorizontal="10dp"
+                tools:listitem="@layout/movie_recycler_item" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+        </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/frontImage"
-                            android:layout_width="match_parent"
-                            android:layout_height="500dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/geek"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.core.widget.NestedScrollView>
 
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:background="@drawable/gradient_poster_filme"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent">
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="25dp"
-                                android:layout_marginTop="50dp"
-                                android:backgroundTint="@android:color/transparent"
-                                app:cardElevation="0dp">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
-
-                                    <ImageView
-                                        android:layout_width="35dp"
-                                        android:layout_height="35dp"
-                                        android:src="@drawable/ic_baseline_add_24" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Minha lista"
-                                        android:textColor="@color/white"
-                                        android:textSize="10dp" />
-                                </LinearLayout>
-                            </androidx.cardview.widget.CardView>
-
-                            <com.google.android.material.button.MaterialButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="10dp"
-                                android:layout_marginTop="50dp"
-                                android:backgroundTint="@color/white"
-                                android:drawableLeft="@drawable/ic_baseline_play_arrow_24"
-                                android:paddingHorizontal="10dp"
-                                android:paddingVertical="0dp"
-                                android:text="Assistir"
-                                android:textColor="@color/black"
-                                android:textSize="10dp"
-                                app:rippleColor="?attr/colorControlHighlight" />
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="25dp"
-                                android:layout_marginTop="50dp"
-                                android:backgroundTint="@android:color/transparent"
-                                app:cardElevation="0dp">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
-
-                                    <ImageView
-                                        android:layout_width="30dp"
-                                        android:layout_height="30dp"
-                                        android:src="@drawable/ic_baseline_info_24" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Info"
-                                        android:textColor="@color/white"
-                                        android:textSize="10dp" />
-                                </LinearLayout>
-                            </androidx.cardview.widget.CardView>
-
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/textMovieName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="350dp"
-                            android:text="Nome do filme"
-                            android:textColor="@color/white"
-                            android:textSize="25sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.497"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="15dp"
-                    android:text="Populares na MovieFlix"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/popularRecycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginHorizontal="10dp"
-                    tools:listitem="@layout/movie_recycler_item" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="15dp"
-                    android:text="Em alta"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/topraredRecycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginHorizontal="10dp"
-                    tools:listitem="@layout/movie_recycler_item" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="15dp"
-                    android:text="Filmes de terror"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginHorizontal="10dp"
-                    tools:listitem="@layout/movie_recycler_item" />
-
-            </LinearLayout>
-
-        </androidx.core.widget.NestedScrollView>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
-
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
