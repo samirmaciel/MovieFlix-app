@@ -1,11 +1,10 @@
-package com.samirmaciel.movieflix.shared.common
+package com.samirmaciel.movieflix.shared.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.shared.model.Movie

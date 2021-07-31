@@ -17,6 +17,9 @@ data class Movie(
     @SerializedName("poster_path")
     val poster : String?,
 
+    @SerializedName("backdrop_path")
+    val backdrop : String?,
+
     @SerializedName("overview")
     val overview : String?,
 
@@ -25,5 +28,5 @@ data class Movie(
 
 
 ) : Parcelable{
-    constructor() : this("", "", "", "", "")
+    constructor() : this("", "", "", "", "", "")
 }
