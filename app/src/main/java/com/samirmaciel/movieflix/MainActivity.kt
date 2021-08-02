@@ -3,7 +3,6 @@ package com.samirmaciel.movieflix
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.samirmaciel.movieflix.databinding.ActivityMainBinding
-import com.samirmaciel.movieflix.modules.home.HomeFragment
 import com.samirmaciel.movieflix.shared.model.Movie
 import com.samirmaciel.movieflix.shared.repository.MovieRepositoryInterface
 import com.samirmaciel.movieflix.shared.data.MovieApiService
@@ -21,18 +20,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(savedInstanceState == null){
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, HomeFragment())
-                .commitAllowingStateLoss()
-        }
 
     }
 
     override fun onStart() {
         super.onStart()
-
-
 
 
     }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentHomePager">
+
+    <fragment
+        android:id="@+id/detailMovieFragment"
+        android:name="com.samirmaciel.movieflix.modules.detailmovie.DetailMovieFragment"
+        android:label="detail_movie_fragment"
+        tools:layout="@layout/detail_movie_fragment" />
+    <fragment
+        android:id="@+id/fragmentHomePager"
+        android:name="com.samirmaciel.movieflix.modules.home.FragmentHomePager"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_fragmentHomePager_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment" />
+    </fragment>
+</navigation>

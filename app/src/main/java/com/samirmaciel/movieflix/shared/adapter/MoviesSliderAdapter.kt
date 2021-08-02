@@ -49,4 +49,8 @@ class MoviesSliderAdapter(private val mContext : Context) : PagerAdapter() {
     fun setListSliders(listSliders : MutableList<Movie>){
         this.mSlidersList = listSliders
     }
+
+    fun getListSliders() : MutableList<Movie>{
+        return this.mSlidersList
+    }
 }
