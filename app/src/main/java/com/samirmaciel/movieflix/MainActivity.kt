@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.samirmaciel.movieflix.databinding.ActivityMainBinding
 import com.samirmaciel.movieflix.shared.model.Movie
 import com.samirmaciel.movieflix.shared.repository.MovieRepositoryInterface
-import com.samirmaciel.movieflix.shared.data.MovieApiService
+import com.samirmaciel.movieflix.shared.apidata.MovieApiService
 import com.samirmaciel.movieflix.shared.model.MovieResponse
 import retrofit2.Call
 import retrofit2.Callback

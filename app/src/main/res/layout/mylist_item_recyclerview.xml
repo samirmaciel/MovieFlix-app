@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@color/black">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/movieImage_mylist"
+            android:layout_width="65dp"
+            android:layout_height="95dp"
+            android:src="@drawable/geek" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/movieTextName_mylist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/lexendregular"
+        android:text="Movie name"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/materialCardView"
+        app:layout_constraintTop_toTopOf="@+id/materialCardView" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/stars"
+        app:layout_constraintStart_toStartOf="@+id/movieTextName_mylist"
+        app:layout_constraintTop_toBottomOf="@+id/movieTextName_mylist" />
+
+    <TextView
+        android:id="@+id/movieRate_mylist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/lexendregular"
+        android:text="6.5"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/movieCategory_mylist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lexendregular"
+        android:text="1997 ‧ Comédia/Fantasia ‧ 1h 27m"
+        android:textColor="@color/white"
+        android:layout_marginTop="15dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

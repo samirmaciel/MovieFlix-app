@@ -1,4 +1,4 @@
-package com.samirmaciel.movieflix.shared.data
+package com.samirmaciel.movieflix.shared.apidata
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

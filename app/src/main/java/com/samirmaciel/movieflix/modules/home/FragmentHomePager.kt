@@ -2,22 +2,18 @@ package com.samirmaciel.movieflix.modules.home
 
 import android.os.Bundle
 import android.transition.TransitionInflater
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.FragmentNavigator
-import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.databinding.FragmentHomeBinding
 import com.samirmaciel.movieflix.shared.adapter.MoviesRecyclerAdapter
 import com.samirmaciel.movieflix.shared.adapter.MoviesSliderAdapter
-import com.samirmaciel.movieflix.shared.data.MovieApiService
+import com.samirmaciel.movieflix.shared.apidata.MovieApiService
 import com.samirmaciel.movieflix.shared.repository.MovieRepositoryInterface
 import java.util.*
 
