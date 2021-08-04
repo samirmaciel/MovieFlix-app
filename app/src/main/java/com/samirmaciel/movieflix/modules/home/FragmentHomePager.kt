@@ -1,11 +1,15 @@
 package com.samirmaciel.movieflix.modules.home
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,18 +36,27 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
         )
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeBinding.bind(view)
         timer.scheduleAtFixedRate(SliderTimer(), 4000, 6000)
+        initViewPager()
+        initRecycler()
     }
 
     override fun onStart() {
         super.onStart()
-        initRecycler()
-        initViewPager()
-        Log.d("LOGD", "onStart: ")
+
         viewModel.popularList.observe(this) { list ->
             mPopularAdapter.list = list
             mPopularAdapter.notifyDataSetChanged()
@@ -56,30 +69,32 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
             mToprateAdapter.notifyDataSetChanged()
         }
 
-
+        mToprateAdapter = MoviesRecyclerAdapter {movie, imageview ->
+//            val extras = FragmentNavigatorExtras(imageview to imageview.transitionName)
+//            val args = Bundle()
+//            args.putString("imageURL", movie.poster.toString())
+//
+//            findNavController().navigate(
+//                R.id.action_fragmentHomePager_to_detailMovieFragment,
+//                args,
+//                null,
+//                extras
+//            )
+        }
 
     }
 
     private fun initRecycler() {
-        mToprateAdapter = MoviesRecyclerAdapter {movie, imageview ->
-            val extras = FragmentNavigatorExtras(imageview to "shared")
-            val args = Bundle()
-            args.putString("imageURL", movie.poster.toString())
 
-            findNavController().navigate(
-                R.id.action_fragmentHomePager_to_detailMovieFragment,
-                args,
-                null,
-                extras
-            )
-        }
         binding.topraredRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = mToprateAdapter
         }
+
         mPopularAdapter = MoviesRecyclerAdapter{movie, imageview ->
             Toast.makeText(requireContext(), "${movie.title}", Toast.LENGTH_LONG).show()
         }
+
         binding.popularRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.popularRecycler.adapter = mPopularAdapter
     }

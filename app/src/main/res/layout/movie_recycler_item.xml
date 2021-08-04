@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:transitionName="sharedrecycler"
+            android:transitionName="shared"
             android:id="@+id/imageRecyclerPoster"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
