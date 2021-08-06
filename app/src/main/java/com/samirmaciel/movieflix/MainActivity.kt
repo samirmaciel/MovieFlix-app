@@ -2,6 +2,10 @@ package com.samirmaciel.movieflix
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.samirmaciel.movieflix.databinding.ActivityMainBinding
 import com.samirmaciel.movieflix.shared.model.Movie
 import com.samirmaciel.movieflix.shared.repository.MovieRepositoryInterface
@@ -13,35 +17,19 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityMainBinding
+    private var _binding : ActivityMainBinding? = null
+    private val binding : ActivityMainBinding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
 
+        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val navController = findNavController(R.id.fragment)
+        bottomNavigation.setupWithNavController(navController)
     }
 
-    override fun onStart() {
-        super.onStart()
 
 
-    }
-
-    private fun getMovieData(callback: (List<Movie>) -> Unit){
-
-        val apiMovies = MovieApiService.getInstance().create(MovieRepositoryInterface::class.java)
-
-        apiMovies.getPopularMovies().enqueue(object : Callback<MovieResponse>{
-            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-                return callback(response.body()!!.movies)
-            }
-
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-
-            }
-        })
-
-    }
 }

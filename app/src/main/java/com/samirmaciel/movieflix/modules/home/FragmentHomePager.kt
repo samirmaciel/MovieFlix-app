@@ -32,27 +32,17 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
         )
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeBinding.bind(view)
-        timer.scheduleAtFixedRate(SliderTimer(), 4000, 6000)
         initViewPager()
         initRecycler()
     }
 
     override fun onStart() {
         super.onStart()
-
+        timer.scheduleAtFixedRate(SliderTimer(this), 4000, 6000)
         viewModel.popularList.observe(this) { list ->
             mPopularAdapter.list = list
             mPopularAdapter.notifyDataSetChanged()
@@ -65,34 +55,39 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
             mToprateAdapter.notifyDataSetChanged()
         }
 
-        mToprateAdapter = MoviesRecyclerAdapter {movie, imageview ->
-//            val extras = FragmentNavigatorExtras(imageview to imageview.transitionName)
-//            val args = Bundle()
-//            args.putString("imageURL", movie.poster.toString())
-//
-//            findNavController().navigate(
-//                R.id.action_fragmentHomePager_to_detailMovieFragment,
-//                args,
-//                null,
-//                extras
-//            )
-        }
+//        mToprateAdapter = MoviesRecyclerAdapter {
+////            val extras = FragmentNavigatorExtras(imageview to imageview.transitionName)
+////            val args = Bundle()
+////            args.putString("imageURL", movie.poster.toString())
+////
+////            findNavController().navigate(
+////                R.id.action_fragmentHomePager_to_detailMovieFragment,
+////                args,
+////                null,
+////                extras
+////            )
+//        }
 
     }
 
     private fun initRecycler() {
+
+        mToprateAdapter = MoviesRecyclerAdapter{}
+        mPopularAdapter = MoviesRecyclerAdapter{}
 
         binding.topraredRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = mToprateAdapter
         }
 
-        mPopularAdapter = MoviesRecyclerAdapter{movie, imageview ->
-            Toast.makeText(requireContext(), "${movie.title}", Toast.LENGTH_LONG).show()
+        mPopularAdapter = MoviesRecyclerAdapter{
         }
 
-        binding.popularRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.popularRecycler.adapter = mPopularAdapter
+        binding.popularRecycler.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = mPopularAdapter
+        }
+
     }
 
     private fun initViewPager(){
@@ -100,29 +95,31 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
         binding.viewPagerSlider.adapter = mPagerSliderAdapter
     }
 
-    inner class SliderTimer : TimerTask(){
+    inner class SliderTimer(private val fragment : Fragment) : TimerTask(){
 
         override fun run() {
-            this@FragmentHomePager.requireActivity().runOnUiThread(object : Runnable{
-                override fun run() {
-                    if(binding.viewPagerSlider.currentItem < viewModel.topratedList.value!!.size - 1){
-                        binding.viewPagerSlider.currentItem = binding.viewPagerSlider.currentItem + 1
-                    }else{
-                        binding.viewPagerSlider.currentItem = 0
+                fragment.requireActivity().runOnUiThread(object : Runnable{
+                    override fun run() {
+                        if(binding.viewPagerSlider.currentItem < viewModel.topratedList.value!!.size - 1){
+                            binding.viewPagerSlider.currentItem = binding.viewPagerSlider.currentItem + 1
+                        }else{
+                            binding.viewPagerSlider.currentItem = 0
+                        }
                     }
-                }
-            })
-        }
+                })
+            }
     }
 
 
-
-
+    override fun onPause() {
+        super.onPause()
+        timer.cancel()
+    }
 
 
     override fun onDestroy() {
         super.onDestroy()
-
+        timer.cancel()
         _binding = null
     }
 }

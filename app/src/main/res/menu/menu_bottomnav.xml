@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/fragmentHomePager"
+        android:icon="@drawable/ic_home"
+            android:title="inicio"/>
+    <item android:id="@+id/search_button"
+        android:icon="@drawable/ic_search"
+        android:title="Procurar"/>
+    <item android:id="@+id/fragmentMylist"
+        android:icon="@drawable/ic_list"
+        android:title="Minha lista"/>
+
+</menu>

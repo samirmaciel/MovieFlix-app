@@ -12,7 +12,7 @@ import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.shared.model.Movie
 import com.squareup.picasso.Picasso
 
-class MoviesRecyclerAdapter(val onItemClicked : (Movie, ImageView) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MoviesRecyclerAdapter(val onItemClicked : (Movie) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var list : MutableList<Movie> = arrayListOf()
 
@@ -43,13 +43,13 @@ class MoviesRecyclerAdapter(val onItemClicked : (Movie, ImageView) -> Unit) : Re
 
         val imageMovie = itemView.findViewById<ImageView>(R.id.imageRecyclerPoster)
 
-        fun bind(onItemClicked: (Movie, ImageView) -> kotlin.Unit, movie : Movie){
+        fun bind(onItemClicked: (Movie) -> kotlin.Unit, movie : Movie){
 
             Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.poster.toString()).into(imageMovie)
 
 
             imageMovie.setOnClickListener{
-                onItemClicked(movie, imageMovie)
+                onItemClicked(movie)
             }
 
         }
