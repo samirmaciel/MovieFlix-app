@@ -43,7 +43,7 @@
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_marginTop="15dp"
-        android:src="@drawable/stars"
+        android:src="@drawable/ic_star"
         app:layout_constraintStart_toStartOf="@+id/movieTextName_mylist"
         app:layout_constraintTop_toBottomOf="@+id/movieTextName_mylist" />
 

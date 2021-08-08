@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.databinding.FragmentHomeBinding
+import com.samirmaciel.movieflix.modules.bottomsheetdetail.BottomSheetDetail
 import com.samirmaciel.movieflix.shared.adapter.MoviesRecyclerAdapter
 import com.samirmaciel.movieflix.shared.adapter.MoviesSliderAdapter
 import com.samirmaciel.movieflix.shared.apidata.MovieApiService
@@ -81,6 +82,14 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
         }
 
         mPopularAdapter = MoviesRecyclerAdapter{
+            val bottomsheet = BottomSheetDetail()
+            val bundle = Bundle().apply {
+                putString("title", it.title)
+                putString("poster", it.poster)
+                putString("overview", it.overview)
+            }
+            bottomsheet.arguments = bundle
+            bottomsheet.show(childFragmentManager, "bottomsheet")
         }
 
         binding.popularRecycler.apply {
