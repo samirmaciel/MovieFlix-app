@@ -12,6 +12,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.databinding.FragmentBottomsheetdetailBinding
+import com.samirmaciel.movieflix.shared.model.Movie
+import com.squareup.picasso.Picasso
 
 class BottomSheetDetail : BottomSheetDialogFragment() {
 
@@ -36,16 +38,18 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
     override fun onStart() {
         super.onStart()
 
-        val dialog = dialog
+        val movie = getMovieParms()
 
-        if(dialog != null){
-            val bottomsheet = dialog.findViewById<ConstraintLayout>(R.id.bottomsheetdetail)
-            bottomsheet.setBackgroundColor(Color.TRANSPARENT)
-        }
+        Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.backdrop.toString()).into(binding.imagePosterMovie)
+        binding.movieTitle.text = movie.title.toString()
+        binding.movieOverview.text = movie.overview.toString()
+        binding.movieVoteaverage.text = movie.voteAverage.toString()
+
     }
 
-
-
+    private fun getMovieParms() : Movie {
+        return Movie(null, arguments?.getString("title"), null, arguments?.getString("backdrop"), arguments?.getString("overview"), null, arguments?.getString("voteAverage"))
+    }
 
 
     override fun onDestroy() {

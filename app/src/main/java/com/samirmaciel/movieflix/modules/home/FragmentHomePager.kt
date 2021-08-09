@@ -85,8 +85,9 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
             val bottomsheet = BottomSheetDetail()
             val bundle = Bundle().apply {
                 putString("title", it.title)
-                putString("poster", it.poster)
+                putString("backdrop", it.backdrop)
                 putString("overview", it.overview)
+                putString("voteAverage", it.voteAverage)
             }
             bottomsheet.arguments = bundle
             bottomsheet.show(childFragmentManager, "bottomsheet")

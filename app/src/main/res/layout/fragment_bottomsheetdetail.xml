@@ -36,6 +36,7 @@
                 app:srcCompat="@drawable/ic_launcher_background" />
 
             <TextView
+                android:id="@+id/movieTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15sp"
@@ -47,6 +48,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/movieOverview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15sp"
@@ -60,6 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -70,6 +73,7 @@
                     android:src="@drawable/ic_star" />
 
                 <TextView
+                    android:id="@+id/movieVoteaverage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -88,17 +92,6 @@
                     android:textColor="@color/white"
                     android:textSize="12sp" />
             </LinearLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonAddList"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:textSize="12sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/button_ripple"
-                android:text="@string/buttonaddlist"
-                app:backgroundTint="#0D8A1A" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
