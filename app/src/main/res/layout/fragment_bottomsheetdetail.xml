@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/bottomsheetdetail">
+    android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -30,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/imagePosterMovie"
-                android:layout_width="310dp"
-                android:layout_height="160dp"
+                android:layout_width="350dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="15dp"
                 app:srcCompat="@drawable/ic_launcher_background" />
 
@@ -41,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15sp"
                 android:fontFamily="@font/lexendregular"
-                android:paddingLeft="30dp"
+                android:paddingLeft="20dp"
                 android:text="Movie name"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -51,9 +50,8 @@
                 android:id="@+id/movieOverview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15sp"
                 android:fontFamily="@font/lexendregular"
-                android:paddingLeft="30dp"
+                android:padding="20dp"
                 android:text="Um cometa está prestes a se chocar com a Terra e ameaça destruir toda a humanidade. Apesar do governo americano esconder o fato, uma repórter revela a verdade, obrigando as autoridades a anunciarem seu plano, na tentativa de salvar o planeta."
                 android:textColor="@color/white"
                 android:textSize="12sp" />
@@ -61,7 +59,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -69,7 +66,7 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="20dp"
                     android:src="@drawable/ic_star" />
 
                 <TextView
@@ -87,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lexendregular"
                     android:gravity="right"
-                    android:paddingEnd="25dp"
+                    android:paddingEnd="20dp"
                     android:text="1998 ‧ Ficção científica ‧ 2h 1m"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
@@ -98,4 +95,4 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
