@@ -1,15 +1,13 @@
 package com.samirmaciel.movieflix.shared.adapter
 
-import android.media.Image
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.samirmaciel.movieflix.R
-import com.samirmaciel.movieflix.shared.model.Movie
+import com.samirmaciel.movieflix.shared.model.api.Movie
 import com.squareup.picasso.Picasso
 
 class MoviesRecyclerAdapter(val onItemClicked : (Movie) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

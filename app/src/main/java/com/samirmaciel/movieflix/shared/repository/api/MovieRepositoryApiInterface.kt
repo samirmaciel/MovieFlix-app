@@ -1,6 +1,6 @@
-package com.samirmaciel.movieflix.shared.repository
+package com.samirmaciel.movieflix.shared.repository.api
 
-import com.samirmaciel.movieflix.shared.model.MovieResponse
+import com.samirmaciel.movieflix.shared.model.api.MovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
 

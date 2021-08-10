@@ -2,18 +2,10 @@ package com.samirmaciel.movieflix
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.samirmaciel.movieflix.databinding.ActivityMainBinding
-import com.samirmaciel.movieflix.shared.model.Movie
-import com.samirmaciel.movieflix.shared.repository.MovieRepositoryInterface
-import com.samirmaciel.movieflix.shared.apidata.MovieApiService
-import com.samirmaciel.movieflix.shared.model.MovieResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 

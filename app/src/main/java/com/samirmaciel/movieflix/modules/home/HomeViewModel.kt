@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.samirmaciel.movieflix.shared.repository.MovieRepositoryInterface
-import com.samirmaciel.movieflix.shared.model.Movie
-import com.samirmaciel.movieflix.shared.model.MovieResponse
+import com.samirmaciel.movieflix.shared.model.api.Movie
+import com.samirmaciel.movieflix.shared.model.api.MovieResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
