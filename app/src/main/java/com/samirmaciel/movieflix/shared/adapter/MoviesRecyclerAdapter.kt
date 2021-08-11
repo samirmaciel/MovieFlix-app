@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.samirmaciel.movieflix.R
-import com.samirmaciel.movieflix.shared.model.api.Movie
+import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
 import com.squareup.picasso.Picasso
 
-class MoviesRecyclerAdapter(val onItemClicked : (Movie) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MoviesRecyclerAdapter(val onItemClicked : (MovieEntityApi) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var list : MutableList<Movie> = arrayListOf()
+    var list : MutableList<MovieEntityApi> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MyViewHolder(
@@ -41,13 +41,13 @@ class MoviesRecyclerAdapter(val onItemClicked : (Movie) -> Unit) : RecyclerView.
 
         val imageMovie = itemView.findViewById<ImageView>(R.id.imageRecyclerPoster)
 
-        fun bind(onItemClicked: (Movie) -> kotlin.Unit, movie : Movie){
+        fun bind(onItemClicked: (MovieEntityApi) -> kotlin.Unit, movieEntityApi : MovieEntityApi){
 
-            Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.poster.toString()).into(imageMovie)
+            Picasso.get().load("https://image.tmdb.org/t/p/w500" + movieEntityApi.poster.toString()).into(imageMovie)
 
 
             imageMovie.setOnClickListener{
-                onItemClicked(movie)
+                onItemClicked(movieEntityApi)
             }
 
         }

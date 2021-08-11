@@ -3,10 +3,10 @@ package com.samirmaciel.movieflix.shared.model.local
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
+import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
 
 @Entity(tableName = "moviesTable")
-data class MovieEntity(
+data class MovieEntityLocal(
 
     @PrimaryKey(autoGenerate = true)
     val id : Long = 0,
@@ -31,6 +31,5 @@ data class MovieEntity(
 
     @ColumnInfo
     val voteAverage : String
-
-
 )
+

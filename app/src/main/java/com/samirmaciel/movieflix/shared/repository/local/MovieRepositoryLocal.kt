@@ -1,14 +1,14 @@
 package com.samirmaciel.movieflix.shared.repository.local
 
 import com.samirmaciel.movieflix.shared.dao.MovieDao
-import com.samirmaciel.movieflix.shared.model.api.Movie
+import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
 import com.samirmaciel.movieflix.shared.model.api.toMovieEntity
-import com.samirmaciel.movieflix.shared.model.local.MovieEntity
+import com.samirmaciel.movieflix.shared.model.local.MovieEntityLocal
 
 class MovieRepositoryLocal(private val movieDao : MovieDao) {
 
-    suspend fun save(movie : Movie){
-        val movieEntity = movie.toMovieEntity()
+    suspend fun save(movieEntityApi : MovieEntityApi){
+        val movieEntity = movieEntityApi.toMovieEntity()
         movieDao.save(movieEntity)
     }
 
@@ -16,7 +16,7 @@ class MovieRepositoryLocal(private val movieDao : MovieDao) {
         movieDao.deleteById(id)
     }
 
-    suspend fun findAll() : MutableList<MovieEntity>{
+    suspend fun findAll() : MutableList<MovieEntityLocal>{
         return movieDao.findAll()
     }
 

@@ -1,20 +1,40 @@
 package com.samirmaciel.movieflix.modules.bottomsheetdetail
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.samirmaciel.movieflix.shared.apidata.MovieApiService
+import androidx.lifecycle.viewModelScope
+import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
+import com.samirmaciel.movieflix.shared.model.local.MovieEntityLocal
+import com.samirmaciel.movieflix.shared.repository.local.MovieRepositoryLocal
+import kotlinx.coroutines.launch
 
-class BottomSheetViewModel(private val repository : MovieApiService) : ViewModel() {
+class BottomSheetViewModel(private val repository : MovieRepositoryLocal) : ViewModel() {
+
+    var movieEntityApiList : MutableLiveData<MutableList<MovieEntityLocal>> = MutableLiveData()
+
+
+    suspend fun getAllMovies(){
+        viewModelScope.launch {
+            movieEntityApiList.postValue(repository.findAll())
+        }
+    }
+
+    suspend fun saveMovie(movie : MovieEntityApi){
+        viewModelScope.launch {
+            repository.save(movie)
+        }
+    }
+
+    suspend fun deleteMovie(id : Long){
+        viewModelScope.launch {
+            repository.deleteById(id)
+        }
+    }
 
 
 
-
-
-
-
-
-
-    class BottomSheetViewModelFactory(private val repository: MovieApiService) : ViewModelProvider.Factory{
+    class BottomSheetViewModelFactory(private val repository: MovieRepositoryLocal) : ViewModelProvider.Factory{
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return BottomSheetViewModel(repository) as T
         }

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.samirmaciel.movieflix.shared.repository.MovieRepositoryInterface
-import com.samirmaciel.movieflix.shared.model.api.Movie
+import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
 import com.samirmaciel.movieflix.shared.model.api.MovieResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,8 +16,8 @@ import retrofit2.Response
 
 class HomeViewModel(private val repository: MovieRepositoryInterface) : ViewModel() {
 
-    val popularList = MutableLiveData<MutableList<Movie>>()
-    val topratedList = MutableLiveData<MutableList<Movie>>()
+    val popularList = MutableLiveData<MutableList<MovieEntityApi>>()
+    val topratedList = MutableLiveData<MutableList<MovieEntityApi>>()
 
     init {
         updatePopularList()
@@ -31,7 +31,7 @@ class HomeViewModel(private val repository: MovieRepositoryInterface) : ViewMode
                     call: Call<MovieResponse>,
                     response: Response<MovieResponse>
                 ) {
-                    popularList.postValue(response.body()?.movies)
+                    popularList.postValue(response.body()?.movieEntityApis)
                 }
 
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
@@ -49,7 +49,7 @@ class HomeViewModel(private val repository: MovieRepositoryInterface) : ViewMode
                     call: Call<MovieResponse>,
                     response: Response<MovieResponse>
                 ) {
-                    topratedList.postValue(response.body()?.movies)
+                    topratedList.postValue(response.body()?.movieEntityApis)
                 }
 
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {

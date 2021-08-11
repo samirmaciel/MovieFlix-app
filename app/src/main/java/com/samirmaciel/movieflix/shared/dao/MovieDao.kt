@@ -4,16 +4,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.samirmaciel.movieflix.shared.model.local.MovieEntity
+import com.samirmaciel.movieflix.shared.model.local.MovieEntityLocal
 
 @Dao
 interface MovieDao {
 
     @Query("SELECT * FROM moviesTable")
-    suspend fun findAll(): MutableList<MovieEntity>
+    suspend fun findAll(): MutableList<MovieEntityLocal>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun save(movieEntity : MovieEntity)
+    suspend fun save(movieEntityLocal : MovieEntityLocal)
 
     @Query("DELETE FROM moviesTable WHERE id = :id")
     suspend fun deleteById(id : Long)

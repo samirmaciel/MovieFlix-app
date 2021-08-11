@@ -5,10 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.samirmaciel.movieflix.shared.dao.MovieDao
-import com.samirmaciel.movieflix.shared.model.local.MovieEntity
+import com.samirmaciel.movieflix.shared.model.local.MovieEntityLocal
 
 
-@Database (entities = [MovieEntity::class], version = 1)
+@Database (entities = [MovieEntityLocal::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun movieDao() : MovieDao

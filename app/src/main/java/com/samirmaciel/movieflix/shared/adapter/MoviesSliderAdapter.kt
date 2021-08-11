@@ -8,12 +8,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
 import com.samirmaciel.movieflix.R
-import com.samirmaciel.movieflix.shared.model.api.Movie
+import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
 import com.squareup.picasso.Picasso
 
 class MoviesSliderAdapter(private val mContext : Context) : PagerAdapter() {
 
-    private var mSlidersList : MutableList<Movie> = ArrayList()
+    private var mSlidersList : MutableList<MovieEntityApi> = ArrayList()
 
     override fun getCount(): Int {
         return mSlidersList.size
@@ -45,11 +45,11 @@ class MoviesSliderAdapter(private val mContext : Context) : PagerAdapter() {
         container.removeView(`object` as View)
     }
 
-    fun setListSliders(listSliders : MutableList<Movie>){
+    fun setListSliders(listSliders : MutableList<MovieEntityApi>){
         this.mSlidersList = listSliders
     }
 
-    fun getListSliders() : MutableList<Movie>{
+    fun getListSliders() : MutableList<MovieEntityApi>{
         return this.mSlidersList
     }
 }

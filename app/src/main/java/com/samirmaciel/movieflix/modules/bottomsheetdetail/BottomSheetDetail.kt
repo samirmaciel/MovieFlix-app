@@ -9,7 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.databinding.FragmentBottomsheetdetailBinding
-import com.samirmaciel.movieflix.shared.model.api.Movie
+import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
 import com.squareup.picasso.Picasso
 
 class BottomSheetDetail : BottomSheetDialogFragment() {
@@ -53,8 +53,8 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
 
     }
 
-    private fun getMovieParms() : Movie {
-        return Movie(null, arguments?.getString("title"), null, arguments?.getString("backdrop"), arguments?.getString("overview"), null, arguments?.getString("voteAverage"))
+    private fun getMovieParms() : MovieEntityApi {
+        return MovieEntityApi(null, arguments?.getString("title"), null, arguments?.getString("backdrop"), arguments?.getString("overview"), null, arguments?.getString("voteAverage"))
     }
 
 
