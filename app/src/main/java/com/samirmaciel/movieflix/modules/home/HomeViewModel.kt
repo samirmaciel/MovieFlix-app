@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.samirmaciel.movieflix.shared.repository.MovieRepositoryInterface
+import com.samirmaciel.movieflix.shared.repository.api.MovieRepositoryApiInterface
 import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
 import com.samirmaciel.movieflix.shared.model.api.MovieResponse
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel(private val repository: MovieRepositoryInterface) : ViewModel() {
+class HomeViewModel(private val repository: MovieRepositoryApiInterface) : ViewModel() {
 
     val popularList = MutableLiveData<MutableList<MovieEntityApi>>()
     val topratedList = MutableLiveData<MutableList<MovieEntityApi>>()
@@ -60,7 +60,7 @@ class HomeViewModel(private val repository: MovieRepositoryInterface) : ViewMode
     }
 
 
-    class HomeViewModelFactory(private val repository: MovieRepositoryInterface) :
+    class HomeViewModelFactory(private val repository: MovieRepositoryApiInterface) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return HomeViewModel(repository) as T

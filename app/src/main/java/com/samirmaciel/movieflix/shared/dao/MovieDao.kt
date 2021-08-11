@@ -9,17 +9,17 @@ import com.samirmaciel.movieflix.shared.model.local.MovieEntityLocal
 @Dao
 interface MovieDao {
 
-    @Query("SELECT * FROM moviesTable")
+    @Query("SELECT * FROM MovieEntityLocal")
     suspend fun findAll(): MutableList<MovieEntityLocal>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun save(movieEntityLocal : MovieEntityLocal)
 
-    @Query("DELETE FROM moviesTable WHERE id = :id")
+    @Query("DELETE FROM MovieEntityLocal WHERE id = :id")
     suspend fun deleteById(id : Long)
 
-    @Query("SELECT * FROM moviesTable WHERE id = :id")
-    suspend fun findById(id : Long)
+    @Query("SELECT * FROM MovieEntityLocal WHERE id = :id")
+    suspend fun findById(id : Long) : MovieEntityLocal
 
 }
 

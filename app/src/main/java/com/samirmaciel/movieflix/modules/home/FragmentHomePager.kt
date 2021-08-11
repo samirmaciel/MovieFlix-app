@@ -15,7 +15,7 @@ import com.samirmaciel.movieflix.modules.bottomsheetdetail.BottomSheetDetail
 import com.samirmaciel.movieflix.shared.adapter.MoviesRecyclerAdapter
 import com.samirmaciel.movieflix.shared.adapter.MoviesSliderAdapter
 import com.samirmaciel.movieflix.shared.apidata.MovieApiService
-import com.samirmaciel.movieflix.shared.repository.MovieRepositoryInterface
+import com.samirmaciel.movieflix.shared.repository.api.MovieRepositoryApiInterface
 import java.util.*
 
 class FragmentHomePager : Fragment(R.layout.fragment_home) {
@@ -29,7 +29,7 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
 
     private val viewModel : HomeViewModel by activityViewModels {
         HomeViewModel.HomeViewModelFactory(
-            MovieApiService.getInstance().create(MovieRepositoryInterface::class.java)
+            MovieApiService.getInstance().create(MovieRepositoryApiInterface::class.java)
         )
     }
 

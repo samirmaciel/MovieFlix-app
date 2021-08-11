@@ -8,10 +8,10 @@ import com.samirmaciel.movieflix.shared.dao.MovieDao
 import com.samirmaciel.movieflix.shared.model.local.MovieEntityLocal
 
 
-@Database (entities = [MovieEntityLocal::class], version = 1)
+@Database (entities = [MovieEntityLocal::class], version = 2 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun movieDao() : MovieDao
+    abstract fun MovieDao() : MovieDao
 
     companion object{
         @Volatile
@@ -26,7 +26,7 @@ abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "movieflix_database"
+                    "app_database"
                 ).build()
 
                 INSTANCE = instance

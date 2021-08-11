@@ -4,15 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.databinding.FragmentBottomsheetdetailBinding
+import com.samirmaciel.movieflix.shared.localdata.AppDatabase
 import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
+import com.samirmaciel.movieflix.shared.repository.local.MovieRepositoryLocal
 import com.squareup.picasso.Picasso
 
 class BottomSheetDetail : BottomSheetDialogFragment() {
+
+    private val viewModel : BottomSheetViewModel by activityViewModels({
+        BottomSheetViewModel.BottomSheetViewModelFactory(
+            MovieRepositoryLocal(AppDatabase.getDatabase(requireContext()).MovieDao())
+        )
+    })
 
     private var _binding : FragmentBottomsheetdetailBinding? = null
     private val binding : FragmentBottomsheetdetailBinding get() = _binding!!
