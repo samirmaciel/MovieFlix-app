@@ -20,4 +20,8 @@ class MovieRepositoryLocal(private val movieDao : MovieDao) {
         return movieDao.findAll()
     }
 
+    suspend fun findById(id : Long) : MovieEntityLocal{
+        return movieDao.findById(id)
+    }
+
 }
