@@ -17,6 +17,8 @@ import com.squareup.picasso.Picasso
 
 class BottomSheetDetail : BottomSheetDialogFragment() {
 
+    private var haveMovieOnMyList : Boolean = false
+
     private val viewModel : BottomSheetViewModel by activityViewModels({
         BottomSheetViewModel.BottomSheetViewModelFactory(
             MovieRepositoryLocal(AppDatabase.getDatabase(requireContext()).MovieDao())
@@ -55,6 +57,16 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
 
         val movie = getMovieParms()
 
+        binding.buttonAddOrRemove.setOnClickListener{
+            if (haveMovieOnMyList){
+                changeAddOrRemoveIcon(false)
+                haveMovieOnMyList = false
+            }else{
+                changeAddOrRemoveIcon(true)
+                haveMovieOnMyList = true
+            }
+        }
+
         Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.backdrop.toString()).into(binding.imagePosterMovie)
         binding.movieTitle.text = movie.title.toString()
         binding.movieOverview.text = movie.overview.toString()
@@ -70,5 +82,14 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun changeAddOrRemoveIcon(set : Boolean){
+        if(set){
+            binding.buttonAddOrRemove.setImageResource(R.drawable.ic_remove_circle)
+        }else{
+            binding.buttonAddOrRemove.setImageResource(R.drawable.ic_add_circle)
+        }
+
     }
 }
