@@ -8,7 +8,7 @@ import com.samirmaciel.movieflix.shared.dao.MovieDao
 import com.samirmaciel.movieflix.shared.model.local.MovieEntityLocal
 
 
-@Database (entities = [MovieEntityLocal::class], version = 2 )
+@Database (entities = [MovieEntityLocal::class], version = 4)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun MovieDao() : MovieDao
@@ -27,7 +27,7 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
 
                 INSTANCE = instance
                 return instance

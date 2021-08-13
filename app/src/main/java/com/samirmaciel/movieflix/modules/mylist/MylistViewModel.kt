@@ -13,22 +13,25 @@ class MylistViewModel(private val repository : MovieRepositoryLocal) : ViewModel
     var movieList : MutableLiveData<MutableList<MovieEntityLocal>> = MutableLiveData()
     var movieItem : MutableLiveData<MovieEntityLocal> = MutableLiveData()
 
+    init {
+        getAllMovies()
+    }
 
-    suspend fun getAllMovies(){
+    fun getAllMovies(){
         viewModelScope.launch {
             movieList.postValue(repository.findAll())
         }
     }
 
-    suspend fun deleteById(id : Long){
+    fun deleteById(movieId : String){
         viewModelScope.launch {
-            repository.deleteById(id)
+            repository.deleteById(movieId)
         }
     }
 
-    suspend fun findById(id : Long){
+    fun findById(movieId : String){
         viewModelScope.launch {
-            movieItem.postValue(repository.findById(id))
+            movieItem.postValue(repository.findById(movieId))
         }
     }
 

@@ -8,11 +8,13 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
+import com.samirmaciel.movieflix.shared.repository.local.MovieRepositoryLocal
 import com.squareup.picasso.Picasso
 
-class MoviesRecyclerAdapter(val onItemClicked : (MovieEntityApi) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MoviesRecyclerAdapterApi(val onItemClicked : (MovieEntityApi) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var list : MutableList<MovieEntityApi> = arrayListOf()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MyViewHolder(
@@ -22,7 +24,7 @@ class MoviesRecyclerAdapter(val onItemClicked : (MovieEntityApi) -> Unit) : Recy
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        Log.d("RECYCLER", "onBindViewHolder: " + list[position].title.toString())
+
         when(holder){
 
             is MyViewHolder -> {

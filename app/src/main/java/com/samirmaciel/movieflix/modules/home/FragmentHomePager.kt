@@ -1,18 +1,14 @@
 package com.samirmaciel.movieflix.modules.home
 
 import android.os.Bundle
-import android.transition.TransitionInflater
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.databinding.FragmentHomeBinding
 import com.samirmaciel.movieflix.modules.bottomsheetdetail.BottomSheetDetail
-import com.samirmaciel.movieflix.shared.adapter.MoviesRecyclerAdapter
+import com.samirmaciel.movieflix.shared.adapter.MoviesRecyclerAdapterApi
 import com.samirmaciel.movieflix.shared.adapter.MoviesSliderAdapter
 import com.samirmaciel.movieflix.shared.apidata.MovieApiService
 import com.samirmaciel.movieflix.shared.repository.api.MovieRepositoryApiInterface
@@ -22,8 +18,8 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
 
     private var _binding : FragmentHomeBinding? = null
     private val binding : FragmentHomeBinding get() = _binding!!
-    private lateinit var mToprateAdapter : MoviesRecyclerAdapter
-    private lateinit var mPopularAdapter : MoviesRecyclerAdapter
+    private lateinit var mToprateAdapterApi : MoviesRecyclerAdapterApi
+    private lateinit var mPopularAdapterApi : MoviesRecyclerAdapterApi
     private lateinit var mPagerSliderAdapter : MoviesSliderAdapter
     private val timer = Timer()
 
@@ -45,15 +41,15 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
         super.onStart()
         timer.scheduleAtFixedRate(SliderTimer(this), 4000, 6000)
         viewModel.popularList.observe(this) { list ->
-            mPopularAdapter.list = list
-            mPopularAdapter.notifyDataSetChanged()
+            mPopularAdapterApi.list = list
+            mPopularAdapterApi.notifyDataSetChanged()
         }
 
         viewModel.topratedList.observe(this) {  list ->
-            mToprateAdapter.list = list
+            mToprateAdapterApi.list = list
             mPagerSliderAdapter.setListSliders(list)
             mPagerSliderAdapter.notifyDataSetChanged()
-            mToprateAdapter.notifyDataSetChanged()
+            mToprateAdapterApi.notifyDataSetChanged()
         }
 
 //        mToprateAdapter = MoviesRecyclerAdapter {
@@ -73,20 +69,23 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
 
     private fun initRecycler() {
 
-        mToprateAdapter = MoviesRecyclerAdapter{}
-        mPopularAdapter = MoviesRecyclerAdapter{}
+        mToprateAdapterApi = MoviesRecyclerAdapterApi{}
+        mPopularAdapterApi = MoviesRecyclerAdapterApi{}
 
         binding.topraredRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = mToprateAdapter
+            adapter = mToprateAdapterApi
         }
 
-        mPopularAdapter = MoviesRecyclerAdapter{
+        mPopularAdapterApi = MoviesRecyclerAdapterApi{
             val bottomsheet = BottomSheetDetail()
             val bundle = Bundle().apply {
+                putString("movieId", it.id)
                 putString("title", it.title)
+                putString("poster", it.poster)
                 putString("backdrop", it.backdrop)
                 putString("overview", it.overview)
+                putString("realese", it.realese)
                 putString("voteAverage", it.voteAverage)
             }
             bottomsheet.arguments = bundle
@@ -95,7 +94,7 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
 
         binding.popularRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = mPopularAdapter
+            adapter = mPopularAdapterApi
         }
 
     }

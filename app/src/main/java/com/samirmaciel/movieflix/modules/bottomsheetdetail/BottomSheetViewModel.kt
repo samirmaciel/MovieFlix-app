@@ -12,23 +12,31 @@ import kotlinx.coroutines.launch
 class BottomSheetViewModel(private val repository : MovieRepositoryLocal) : ViewModel() {
 
     var movieEntityApiList : MutableLiveData<MutableList<MovieEntityLocal>> = MutableLiveData()
+    var movieItem : MutableLiveData<MovieEntityLocal> = MutableLiveData()
 
-
-    suspend fun getAllMovies(){
+    fun getAllMovies(){
         viewModelScope.launch {
             movieEntityApiList.postValue(repository.findAll())
         }
     }
 
-    suspend fun saveMovie(movie : MovieEntityApi){
+    fun saveMovie(movie : MovieEntityApi){
         viewModelScope.launch {
             repository.save(movie)
         }
     }
 
-    suspend fun deleteMovie(id : Long){
+    fun findById(id : String){
         viewModelScope.launch {
-            repository.deleteById(id)
+            movieItem.postValue(repository.findById(id))
+
+        }
+
+    }
+
+    fun deleteMovie(movieId : String){
+        viewModelScope.launch {
+            repository.deleteById(movieId)
         }
     }
 

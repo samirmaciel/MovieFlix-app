@@ -36,7 +36,7 @@ data class MovieEntityApi(
     constructor() : this("", "", "", "", "", "", "")
 }
 
-fun MovieEntityApi.toMovieEntity(): MovieEntityLocal {
+fun MovieEntityApi.toMovieEntityLocal(): MovieEntityLocal {
     return MovieEntityLocal(
         movieId = this.id.toString(),
         title = this.title.toString(),
