@@ -9,8 +9,7 @@ import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
 @Entity
 data class MovieEntityLocal(
 
-    @PrimaryKey(autoGenerate = true) val id : Long = 0,
-    @ColumnInfo val movieId : String,
+    @PrimaryKey val movieId : String,
     @ColumnInfo val title : String,
     @ColumnInfo val poster : String,
     @ColumnInfo val backdrop : String,

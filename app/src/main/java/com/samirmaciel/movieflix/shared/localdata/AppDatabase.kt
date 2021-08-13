@@ -8,7 +8,7 @@ import com.samirmaciel.movieflix.shared.dao.MovieDao
 import com.samirmaciel.movieflix.shared.model.local.MovieEntityLocal
 
 
-@Database (entities = [MovieEntityLocal::class], version = 4)
+@Database (entities = [MovieEntityLocal::class], version = 5)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun MovieDao() : MovieDao

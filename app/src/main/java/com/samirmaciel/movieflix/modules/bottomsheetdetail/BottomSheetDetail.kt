@@ -1,10 +1,13 @@
 package com.samirmaciel.movieflix.modules.bottomsheetdetail
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -53,8 +56,8 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
 
             if(it != null){
                 if(it.title.equals(movieReturn.title)){
-                    Log.d("viewModel", "onViewCreated: " + it.title.toString())
-                    binding.buttonAddOrRemove.setImageResource(R.drawable.ic_remove_circle)
+                    Toast.makeText(requireContext(), "ObserveMovie", Toast.LENGTH_LONG).show()
+                    binding.buttonAddOrRemove.setImageResource(R.drawable.ic_library_add_check)
                     haveMovieOnMyList = true
                 }
             }
@@ -79,14 +82,25 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
         bindMovieOnLayout(movieReturn)
 
         binding.buttonAddOrRemove.setOnClickListener{
-            if (haveMovieOnMyList){
-                changeAddOrRemoveIcon(false)
-                haveMovieOnMyList = false
-                viewModel.saveMovie(movieReturn)
-            }else{
+            if (!haveMovieOnMyList){
                 changeAddOrRemoveIcon(true)
                 haveMovieOnMyList = true
-                viewModel.deleteMovie(movieReturn.toMovieEntityLocal().movieId)
+                Toast.makeText(requireContext(), "Filme adicionado na minha lista", Toast.LENGTH_LONG).show()
+                viewModel.saveMovie(movieReturn)
+            }else{
+                val alert = AlertDialog.Builder(requireContext()).apply {
+                    setTitle("Deseja remover este filme da sua lista?")
+                    setPositiveButton("Sim", DialogInterface.OnClickListener{ dialog, id ->
+                        changeAddOrRemoveIcon(false)
+                        haveMovieOnMyList = false
+                        Toast.makeText(requireContext(), "Filme removido da minha lista", Toast.LENGTH_LONG).show()
+                        viewModel.deleteMovie(movieReturn.toMovieEntityLocal().movieId)
+                    })
+                    setNegativeButton("Não", null)
+                }
+
+                alert.create().show()
+
             }
         }
     }
@@ -111,9 +125,9 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
 
     private fun changeAddOrRemoveIcon(set : Boolean){
         if(set){
-            binding.buttonAddOrRemove.setImageResource(R.drawable.ic_remove_circle)
+            binding.buttonAddOrRemove.setImageResource(R.drawable.ic_library_add_check)
         }else{
-            binding.buttonAddOrRemove.setImageResource(R.drawable.ic_add_circle)
+            binding.buttonAddOrRemove.setImageResource(R.drawable.ic_add_box)
         }
 
     }

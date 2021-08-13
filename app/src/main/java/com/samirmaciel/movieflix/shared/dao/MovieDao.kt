@@ -15,7 +15,7 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun save(movieEntityLocal : MovieEntityLocal)
 
-    @Query("DELETE FROM MovieEntityLocal WHERE id = :movieId")
+    @Query("DELETE FROM MovieEntityLocal WHERE movieId = :movieId")
     suspend fun deleteById(movieId : String)
 
     @Query("SELECT * FROM MovieEntityLocal WHERE movieId = :movieId")
