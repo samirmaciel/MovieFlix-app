@@ -48,9 +48,15 @@ class FragmentMylist : Fragment(R.layout.fragment_mylist) {
     override fun onStart() {
         super.onStart()
 
-        viewModel.movieList.observe(this){
-            adapterRecyclerView
+        viewModel.movieList.observe(this){ list ->
+            adapterRecyclerView.list = list
+            adapterRecyclerView.notifyDataSetChanged()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllMovies()
     }
 
 
