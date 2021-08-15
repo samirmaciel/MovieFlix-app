@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginVertical="15dp"
-                    android:text="Populares na MovieFlix"
+                    android:text="@string/popular_movies"
                     android:textColor="@color/white"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginVertical="15dp"
-                    android:text="Em alta"
+                    android:text="@string/top_rated"
                     android:textColor="@color/white"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -70,13 +70,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginVertical="15dp"
-                    android:text="Filmes de terror"
+                    android:text="@string/movies_upcoming"
                     android:textColor="@color/white"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/horrorRecycler"
+                    android:id="@+id/upcomingRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_marginHorizontal="10dp"

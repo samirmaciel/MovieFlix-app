@@ -18,10 +18,12 @@ class HomeViewModel(private val repository: MovieRepositoryApiInterface) : ViewM
 
     val popularList = MutableLiveData<MutableList<MovieEntityApi>>()
     val topratedList = MutableLiveData<MutableList<MovieEntityApi>>()
+    val upcomingList = MutableLiveData<MutableList<MovieEntityApi>>()
 
     init {
         updatePopularList()
         updateTopratedList()
+        updateUpcomingList()
     }
 
     fun updatePopularList() {
@@ -55,6 +57,24 @@ class HomeViewModel(private val repository: MovieRepositoryApiInterface) : ViewM
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     Log.d("TOPRATEDERROR", "onFailure: " + t.message.toString())
                 }
+            })
+        }
+    }
+
+    fun updateUpcomingList(){
+        viewModelScope.launch {
+            repository.getUpcomingMovies().enqueue(object : Callback<MovieResponse>{
+                override fun onResponse(
+                    call: Call<MovieResponse>,
+                    response: Response<MovieResponse>
+                ) {
+                    upcomingList.postValue(response.body()?.movieEntityApis)
+                }
+
+                override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                    Log.d("MOVIESUPCOMING", "onFailure: " + t.message.toString())
+                }
+
             })
         }
     }

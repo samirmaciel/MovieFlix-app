@@ -18,6 +18,7 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
 
     private var _binding : FragmentHomeBinding? = null
     private val binding : FragmentHomeBinding get() = _binding!!
+    private lateinit var mUpcomingAdapterApi : MoviesRecyclerAdapterApi
     private lateinit var mToprateAdapterApi : MoviesRecyclerAdapterApi
     private lateinit var mPopularAdapterApi : MoviesRecyclerAdapterApi
     private lateinit var mPagerSliderAdapter : MoviesSliderAdapter
@@ -40,6 +41,7 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
     override fun onStart() {
         super.onStart()
         timer.scheduleAtFixedRate(SliderTimer(this), 4000, 6000)
+
         viewModel.popularList.observe(this) { list ->
             mPopularAdapterApi.list = list
             mPopularAdapterApi.notifyDataSetChanged()
@@ -52,29 +54,31 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
             mToprateAdapterApi.notifyDataSetChanged()
         }
 
-//        mToprateAdapter = MoviesRecyclerAdapter {
-////            val extras = FragmentNavigatorExtras(imageview to imageview.transitionName)
-////            val args = Bundle()
-////            args.putString("imageURL", movie.poster.toString())
-////
-////            findNavController().navigate(
-////                R.id.action_fragmentHomePager_to_detailMovieFragment,
-////                args,
-////                null,
-////                extras
-////            )
-//        }
+        viewModel.upcomingList.observe(this){ list ->
+            mUpcomingAdapterApi.list = list
+            mUpcomingAdapterApi.notifyDataSetChanged()
+
+        }
 
     }
 
     private fun initRecycler() {
 
-        mToprateAdapterApi = MoviesRecyclerAdapterApi{}
-        mPopularAdapterApi = MoviesRecyclerAdapterApi{}
 
-        binding.topraredRecycler.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = mToprateAdapterApi
+        mToprateAdapterApi = MoviesRecyclerAdapterApi{
+            val bottomsheet = BottomSheetDetail()
+            val bundle = Bundle().apply {
+                putString("movieId", it.id)
+                putString("title", it.title)
+                putString("poster", it.poster)
+                putString("backdrop", it.backdrop)
+                putString("overview", it.overview)
+                putString("realese", it.realese)
+                putString("voteAverage", it.voteAverage)
+            }
+
+            bottomsheet.arguments = bundle
+            bottomsheet.show(childFragmentManager, "bottomsheetToprated")
         }
 
         mPopularAdapterApi = MoviesRecyclerAdapterApi{
@@ -89,14 +93,39 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
                 putString("voteAverage", it.voteAverage)
             }
             bottomsheet.arguments = bundle
-            bottomsheet.show(childFragmentManager, "bottomsheet")
+            bottomsheet.show(childFragmentManager, "bottomsheetPopular")
+        }
+
+        mUpcomingAdapterApi = MoviesRecyclerAdapterApi {
+            val bottomsheet = BottomSheetDetail()
+            val bundle = Bundle().apply {
+                putString("movieId", it.id)
+                putString("title", it.title)
+                putString("poster", it.poster)
+                putString("backdrop", it.backdrop)
+                putString("overview", it.overview)
+                putString("realese", it.realese)
+                putString("voteAverage", it.voteAverage)
+            }
+
+            bottomsheet.arguments = bundle
+            bottomsheet.show(childFragmentManager, "bottomsheetToprated")
+        }
+
+        binding.upcomingRecycler.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = mUpcomingAdapterApi
+        }
+
+        binding.topraredRecycler.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = mToprateAdapterApi
         }
 
         binding.popularRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = mPopularAdapterApi
         }
-
     }
 
     private fun initViewPager(){

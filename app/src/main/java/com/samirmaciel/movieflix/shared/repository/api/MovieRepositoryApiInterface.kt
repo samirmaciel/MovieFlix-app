@@ -16,4 +16,7 @@ interface MovieRepositoryApiInterface{
     @GET("/3/movie/top_rated?api_key=$APIKEY&$LANGUAGE&$IMAGELANGUAGE,null")
     fun getRatedMovies() : Call<MovieResponse>
 
+    @GET("/3/movie/upcoming?api_key=$APIKEY&$LANGUAGE&$IMAGELANGUAGE,null")
+    fun getUpcomingMovies() : Call<MovieResponse>
+
 }
