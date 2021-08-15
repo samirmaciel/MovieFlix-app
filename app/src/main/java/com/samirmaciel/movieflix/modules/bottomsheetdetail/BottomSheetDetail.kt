@@ -48,36 +48,16 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentBottomsheetdetailBinding.bind(view)
 
-        movieReturn = getMovieReturn()
-
-        viewModel.findById(movieReturn.toMovieEntityLocal().movieId)
-
-        viewModel.movieItem.observe(this){
-
-            if(it != null){
-                if(it.title.equals(movieReturn.title)){
-                    Toast.makeText(requireContext(), "ObserveMovie", Toast.LENGTH_LONG).show()
-                    binding.buttonAddOrRemove.setImageResource(R.drawable.ic_library_add_check)
-                    haveMovieOnMyList = true
-                }
-            }
-
-
-        }
-
-        //val offsetFromTop = 200
-        (dialog as? BottomSheetDialog)?.behavior?.apply {
-            isFitToContents = true
-            //setExpandedOffset(offsetFromTop)
-            state = BottomSheetBehavior.STATE_EXPANDED
-        }
+        expandBottomSheet()
     }
-
-
 
     override fun onStart() {
         super.onStart()
 
+        movieReturn = getMovieReturn()
+        viewModel.findById(movieReturn.toMovieEntityLocal().movieId)
+
+        checkMovieOnMyList()
 
         bindMovieOnLayout(movieReturn)
 
@@ -95,15 +75,15 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
                         haveMovieOnMyList = false
                         Toast.makeText(requireContext(), "Filme removido da minha lista", Toast.LENGTH_LONG).show()
                         viewModel.deleteMovie(movieReturn.toMovieEntityLocal().movieId)
+                        viewModel.movieItem.postValue(null)
                     })
                     setNegativeButton("Não", null)
                 }
-
                 alert.create().show()
-
             }
         }
     }
+
 
 
     private fun getMovieReturn() : MovieEntityApi {
@@ -129,6 +109,27 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
         }else{
             binding.buttonAddOrRemove.setImageResource(R.drawable.ic_add_box)
         }
+    }
 
+    private fun checkMovieOnMyList(){
+        viewModel.movieItem.observe(this){
+
+            if(it != null){
+                if(it.title.equals(movieReturn.title)){
+                    Toast.makeText(requireContext(), "ObserveMovie", Toast.LENGTH_LONG).show()
+                    binding.buttonAddOrRemove.setImageResource(R.drawable.ic_library_add_check)
+                    haveMovieOnMyList = true
+                }
+            }
+        }
+    }
+
+    private fun expandBottomSheet(){
+        //val offsetFromTop = 200
+        (dialog as? BottomSheetDialog)?.behavior?.apply {
+            isFitToContents = true
+            //setExpandedOffset(offsetFromTop)
+            state = BottomSheetBehavior.STATE_EXPANDED
+        }
     }
 }
