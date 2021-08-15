@@ -35,12 +35,9 @@ class MylistViewModel(private val repository : MovieRepositoryLocal) : ViewModel
         }
     }
 
-
     class MylistViewModelFactory(private val repository: MovieRepositoryLocal) : ViewModelProvider.Factory{
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return MylistViewModel(repository) as T
         }
-
-
     }
 }

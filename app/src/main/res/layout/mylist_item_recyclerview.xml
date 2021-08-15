@@ -61,17 +61,17 @@
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/movieCategory_mylist"
+    <ImageView
+        android:id="@+id/buttonRemove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/lexendregular"
-        android:text="1997 ‧ Comédia/Fantasia ‧ 1h 27m"
-        android:textColor="@color/white"
-        android:layout_marginTop="15dp"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_indeterminate_check"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

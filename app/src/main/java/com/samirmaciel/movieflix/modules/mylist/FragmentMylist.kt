@@ -28,13 +28,10 @@ class FragmentMylist : Fragment(R.layout.fragment_mylist) {
         )
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMylistBinding.bind(view)
         initRecyclerView()
-
-
     }
 
     private fun initRecyclerView(){
@@ -47,7 +44,6 @@ class FragmentMylist : Fragment(R.layout.fragment_mylist) {
 
     override fun onStart() {
         super.onStart()
-
         viewModel.movieList.observe(this){ list ->
             adapterRecyclerView.list = list
             adapterRecyclerView.notifyDataSetChanged()
@@ -58,9 +54,6 @@ class FragmentMylist : Fragment(R.layout.fragment_mylist) {
         super.onResume()
         viewModel.getAllMovies()
     }
-
-
-
 
     override fun onDestroy() {
         super.onDestroy()
