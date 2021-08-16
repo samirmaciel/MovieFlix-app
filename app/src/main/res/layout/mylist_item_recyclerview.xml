@@ -12,7 +12,6 @@
         android:id="@+id/materialCardView"
         android:layout_width="65dp"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">

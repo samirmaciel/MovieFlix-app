@@ -43,7 +43,7 @@ class MoviesRecyclerAdapterApi(val onItemClicked : (MovieEntityApi) -> Unit) : R
 
         val imageMovie = itemView.findViewById<ImageView>(R.id.imageRecyclerPoster)
 
-        fun bind(onItemClicked: (MovieEntityApi) -> kotlin.Unit, movieEntityApi : MovieEntityApi){
+        fun bind( onItemClicked: (MovieEntityApi) -> kotlin.Unit, movieEntityApi : MovieEntityApi){
 
             Picasso.get().load("https://image.tmdb.org/t/p/w500" + movieEntityApi.poster.toString()).into(imageMovie)
 

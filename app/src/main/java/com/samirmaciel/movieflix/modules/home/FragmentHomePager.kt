@@ -96,7 +96,7 @@ class FragmentHomePager : Fragment(R.layout.fragment_home) {
             bottomsheet.show(childFragmentManager, "bottomsheetPopular")
         }
 
-        mUpcomingAdapterApi = MoviesRecyclerAdapterApi {
+        mUpcomingAdapterApi = MoviesRecyclerAdapterApi{
             val bottomsheet = BottomSheetDetail()
             val bundle = Bundle().apply {
                 putString("movieId", it.id)
