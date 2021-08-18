@@ -6,23 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:background="@color/black">
+    android:background="@color/bottomsheet">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView"
+
+    <ImageView
+        android:id="@+id/movieImage_mylist"
         android:layout_width="65dp"
-        android:layout_height="wrap_content"
+        android:layout_height="95dp"
+        android:layout_marginVertical="5dp"
+        android:layout_marginStart="5dp"
+        android:src="@drawable/geek"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/movieImage_mylist"
-            android:layout_width="65dp"
-            android:layout_height="95dp"
-            android:src="@drawable/geek" />
-
-    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/movieTextName_mylist"
@@ -34,8 +31,8 @@
         android:text="Movie name"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/materialCardView"
-        app:layout_constraintTop_toTopOf="@+id/materialCardView" />
+        app:layout_constraintStart_toEndOf="@+id/movieImage_mylist"
+        app:layout_constraintTop_toTopOf="@+id/movieImage_mylist" />
 
     <ImageView
         android:id="@+id/imageView"
