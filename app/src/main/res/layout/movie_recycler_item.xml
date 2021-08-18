@@ -5,28 +5,20 @@
     android:layout_marginRight="10dp"
     android:layout_height="wrap_content">
 
-    <com.google.android.material.card.MaterialCardView
+
+    <ImageView
+        android:id="@+id/imageRecyclerPoster"
         android:layout_width="100dp"
         android:layout_height="150dp"
-        app:rippleColor="?attr/colorControlHighlight"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:scaleType="centerCrop"
+        android:src="@drawable/geek"
+        android:transitionName="shared"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:transitionName="shared"
-            android:id="@+id/imageRecyclerPoster"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:focusable="true"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/geek" />
-
-    </com.google.android.material.card.MaterialCardView>
-
-
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

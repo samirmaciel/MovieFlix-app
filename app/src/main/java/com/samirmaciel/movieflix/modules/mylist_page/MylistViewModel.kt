@@ -1,4 +1,4 @@
-package com.samirmaciel.movieflix.modules.mylist
+package com.samirmaciel.movieflix.modules.mylist_page
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

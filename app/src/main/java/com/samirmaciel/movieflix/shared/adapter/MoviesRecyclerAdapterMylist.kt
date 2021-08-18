@@ -1,21 +1,13 @@
 package com.samirmaciel.movieflix.shared.adapter
 
-import android.app.AlertDialog
-import android.content.DialogInterface
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.samirmaciel.movieflix.R
-import com.samirmaciel.movieflix.modules.mylist.MylistViewModel
-import com.samirmaciel.movieflix.shared.localdata.AppDatabase
-import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
 import com.samirmaciel.movieflix.shared.model.local.MovieEntityLocal
-import com.samirmaciel.movieflix.shared.repository.local.MovieRepositoryLocal
 import com.squareup.picasso.Picasso
 
 class MoviesRecyclerAdapterMylist(val onButtonClick : (Int, MovieEntityLocal) -> Unit, val onItemClick : (MovieEntityLocal) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {

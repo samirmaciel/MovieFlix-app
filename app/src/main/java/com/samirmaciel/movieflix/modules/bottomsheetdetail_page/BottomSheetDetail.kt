@@ -1,9 +1,8 @@
-package com.samirmaciel.movieflix.modules.bottomsheetdetail
+package com.samirmaciel.movieflix.modules.bottomsheetdetail_page
 
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,6 @@ import com.samirmaciel.movieflix.databinding.FragmentBottomsheetdetailBinding
 import com.samirmaciel.movieflix.shared.localdata.AppDatabase
 import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
 import com.samirmaciel.movieflix.shared.model.api.toMovieEntityLocal
-import com.samirmaciel.movieflix.shared.model.local.MovieEntityLocal
 import com.samirmaciel.movieflix.shared.repository.local.MovieRepositoryLocal
 import com.squareup.picasso.Picasso
 

@@ -3,25 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentHomePager">
+    app:startDestination="@id/fragmentHomePage">
 
     <fragment
-        android:id="@+id/fragmentHomePager"
-        android:name="com.samirmaciel.movieflix.modules.home.FragmentHomePager"
+        android:id="@+id/fragmentHomePage"
+        android:name="com.samirmaciel.movieflix.modules.home_page.FragmentHomePage"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_fragmentHomePager_to_fragmentMylist2"
-            app:destination="@id/fragmentMylist"
+            android:id="@+id/action_fragmentHomePager_to_fragmentMylistPage"
+            app:destination="@id/fragmentMylistPage"
             app:enterAnim="@anim/move_right"
             app:exitAnim="@anim/get_left"
-            app:popUpTo="@id/fragmentMylist"
+            app:popUpTo="@id/fragmentMylistPage"
             app:popEnterAnim="@anim/move_right"
             app:popExitAnim="@anim/get_left" />
+        <action
+            android:id="@+id/action_fragmentHomePage_to_fragmentSearchPage"
+            app:destination="@id/fragmentSearchPage" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentMylist"
-        android:name="com.samirmaciel.movieflix.modules.mylist.FragmentMylist"
+        android:id="@+id/fragmentMylistPage"
+        android:name="com.samirmaciel.movieflix.modules.mylist_page.FragmentMylistPage"
         android:label="FragmentMylist"
-        tools:layout="@layout/fragment_mylist"/>
+        tools:layout="@layout/fragment_mylist">
+        <action
+            android:id="@+id/action_fragmentMylistPage_to_fragmentSearchPage"
+            app:destination="@id/fragmentSearchPage" />
+        <action
+            android:id="@+id/action_fragmentMylistPage_to_fragmentHomePage"
+            app:destination="@id/fragmentHomePage" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSearchPage"
+        android:name="com.samirmaciel.movieflix.modules.search_page.FragmentSearchPage"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_fragmentSearchPage_to_fragmentMylistPage"
+            app:destination="@id/fragmentMylistPage" />
+        <action
+            android:id="@+id/action_fragmentSearchPage_to_fragmentHomePage"
+            app:destination="@id/fragmentHomePage" />
+    </fragment>
 </navigation>

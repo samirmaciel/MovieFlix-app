@@ -1,4 +1,4 @@
-package com.samirmaciel.movieflix.modules.home
+package com.samirmaciel.movieflix.modules.home_page
 
 import android.os.Bundle
 import android.view.View
@@ -7,14 +7,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.databinding.FragmentHomeBinding
-import com.samirmaciel.movieflix.modules.bottomsheetdetail.BottomSheetDetail
+import com.samirmaciel.movieflix.modules.bottomsheetdetail_page.BottomSheetDetail
 import com.samirmaciel.movieflix.shared.adapter.MoviesRecyclerAdapterApi
 import com.samirmaciel.movieflix.shared.adapter.MoviesSliderAdapter
 import com.samirmaciel.movieflix.shared.apidata.MovieApiService
 import com.samirmaciel.movieflix.shared.repository.api.MovieRepositoryApiInterface
 import java.util.*
 
-class FragmentHomePager : Fragment(R.layout.fragment_home) {
+class FragmentHomePage : Fragment(R.layout.fragment_home) {
 
     private var _binding : FragmentHomeBinding? = null
     private val binding : FragmentHomeBinding get() = _binding!!

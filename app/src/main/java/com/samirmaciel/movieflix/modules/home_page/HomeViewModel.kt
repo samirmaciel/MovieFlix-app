@@ -1,4 +1,4 @@
-package com.samirmaciel.movieflix.modules.home
+package com.samirmaciel.movieflix.modules.home_page
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -28,7 +28,7 @@ class HomeViewModel(private val repository: MovieRepositoryApiInterface) : ViewM
 
     fun updatePopularList() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getPopularMovies().enqueue(object : Callback<MovieResponse> {
+            repository.getPopularMovies("b2b2968f90966aca368661a132319376").enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(
                     call: Call<MovieResponse>,
                     response: Response<MovieResponse>

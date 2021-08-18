@@ -1,4 +1,4 @@
-package com.samirmaciel.movieflix.modules.splash
+package com.samirmaciel.movieflix.modules.splash_page
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

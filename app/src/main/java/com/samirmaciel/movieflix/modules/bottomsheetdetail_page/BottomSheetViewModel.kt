@@ -1,4 +1,4 @@
-package com.samirmaciel.movieflix.modules.bottomsheetdetail
+package com.samirmaciel.movieflix.modules.bottomsheetdetail_page
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
