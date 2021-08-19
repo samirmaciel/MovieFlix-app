@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.databinding.FragmentSearchBinding
+import com.samirmaciel.movieflix.modules.bottomsheetdetail_page.BottomSheetDetail
 import com.samirmaciel.movieflix.shared.adapter.MoviesRecyclerAdapterApi
 import com.samirmaciel.movieflix.shared.apidata.MovieApiService
 import com.samirmaciel.movieflix.shared.localdata.AppDatabase
@@ -64,11 +65,25 @@ class FragmentSearchPage : Fragment(R.layout.fragment_search){
 
 
     private fun initRecyclerView(){
-        recyclerAdapter = MoviesRecyclerAdapterApi {}
+        recyclerAdapter = MoviesRecyclerAdapterApi {
+            val bottomsheet = BottomSheetDetail()
+            val bundle = Bundle().apply {
+                putString("movieId", it.id)
+                putString("title", it.title)
+                putString("poster", it.poster)
+                putString("backdrop", it.backdrop)
+                putString("overview", it.overview)
+                putString("realese", it.realese)
+                putString("voteAverage", it.voteAverage)
+            }
+
+            bottomsheet.arguments = bundle
+            bottomsheet.show(childFragmentManager, "bottomsheetSearch")
+        }
 
         binding.searchRecyclerView.apply {
             adapter = recyclerAdapter
-            layoutManager = GridLayoutManager(requireContext(), 2)
+            layoutManager = GridLayoutManager(requireContext(), 3)
         }
     }
 

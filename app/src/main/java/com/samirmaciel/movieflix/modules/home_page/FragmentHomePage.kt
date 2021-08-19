@@ -40,7 +40,7 @@ class FragmentHomePage : Fragment(R.layout.fragment_home) {
 
     override fun onStart() {
         super.onStart()
-        timer.scheduleAtFixedRate(SliderTimer(this), 4000, 6000)
+
 
         viewModel.popularList.observe(this) { list ->
             mPopularAdapterApi.list = list
@@ -59,6 +59,8 @@ class FragmentHomePage : Fragment(R.layout.fragment_home) {
             mUpcomingAdapterApi.notifyDataSetChanged()
 
         }
+
+        timer.scheduleAtFixedRate(SliderTimer(this), 4000, 6000)
 
     }
 
@@ -138,11 +140,14 @@ class FragmentHomePage : Fragment(R.layout.fragment_home) {
         override fun run() {
                 fragment.requireActivity().runOnUiThread(object : Runnable{
                     override fun run() {
-                        if(binding.viewPagerSlider.currentItem < viewModel.topratedList.value!!.size - 1){
-                            binding.viewPagerSlider.currentItem = binding.viewPagerSlider.currentItem + 1
-                        }else{
-                            binding.viewPagerSlider.currentItem = 0
+                        if(mPagerSliderAdapter.getListSliders().size > 0){
+                            if(binding.viewPagerSlider.currentItem < viewModel.topratedList.value!!.size - 1){
+                                binding.viewPagerSlider.currentItem = binding.viewPagerSlider.currentItem + 1
+                            }else{
+                                binding.viewPagerSlider.currentItem = 0
+                            }
                         }
+
                     }
                 })
             }
