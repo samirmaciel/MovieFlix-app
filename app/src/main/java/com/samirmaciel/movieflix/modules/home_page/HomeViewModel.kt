@@ -33,7 +33,7 @@ class HomeViewModel(private val repository: MovieRepositoryApiInterface) : ViewM
                     call: Call<MovieResponse>,
                     response: Response<MovieResponse>
                 ) {
-                    popularList.postValue(response.body()?.movieEntityApis)
+                    popularList.postValue(response.body()?.movieList)
                 }
 
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
@@ -51,7 +51,7 @@ class HomeViewModel(private val repository: MovieRepositoryApiInterface) : ViewM
                     call: Call<MovieResponse>,
                     response: Response<MovieResponse>
                 ) {
-                    topratedList.postValue(response.body()?.movieEntityApis)
+                    topratedList.postValue(response.body()?.movieList)
                 }
 
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
@@ -68,7 +68,7 @@ class HomeViewModel(private val repository: MovieRepositoryApiInterface) : ViewM
                     call: Call<MovieResponse>,
                     response: Response<MovieResponse>
                 ) {
-                    upcomingList.postValue(response.body()?.movieEntityApis)
+                    upcomingList.postValue(response.body()?.movieList)
                 }
 
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
