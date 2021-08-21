@@ -15,6 +15,7 @@ import com.samirmaciel.movieflix.modules.bottomsheetdetail_page.BottomSheetDetai
 import com.samirmaciel.movieflix.shared.adapter.MoviesRecyclerAdapterApi
 import com.samirmaciel.movieflix.shared.apidata.MovieApiService
 import com.samirmaciel.movieflix.shared.localdata.AppDatabase
+import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
 import com.samirmaciel.movieflix.shared.repository.api.MovieRepositoryApiInterface
 
 class FragmentSearchPage : Fragment(R.layout.fragment_search){
@@ -53,9 +54,16 @@ class FragmentSearchPage : Fragment(R.layout.fragment_search){
             }
         })
 
-        viewModel.movieList.observe(this){
-            if(it != null){
-                recyclerAdapter.list = it
+        viewModel.movieList.observe(this){ list ->
+            var movieList : MutableList<MovieEntityApi> = ArrayList()
+            if(list != null){
+                for (movie in list.indices){
+                    if(list[movie].poster != null){
+                        movieList.add(list[movie])
+                    }
+
+                }
+                recyclerAdapter.list = movieList
                 recyclerAdapter.notifyDataSetChanged()
             }
 
