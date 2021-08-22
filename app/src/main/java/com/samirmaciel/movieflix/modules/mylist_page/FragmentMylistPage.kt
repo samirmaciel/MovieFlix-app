@@ -20,7 +20,6 @@ class FragmentMylistPage : Fragment(R.layout.fragment_mylist){
 
     private var _binding : FragmentMylistBinding? = null
     private val binding : FragmentMylistBinding get() = _binding!!
-    private lateinit var adapterRecyclerView : MoviesRecyclerAdapterMylist
 
     private val viewModel : MylistViewModel by activityViewModels {
         MylistViewModel.MylistViewModelFactory(
@@ -77,17 +76,11 @@ class FragmentMylistPage : Fragment(R.layout.fragment_mylist){
 
     override fun onStart() {
         super.onStart()
-        viewModel.movieList.observe(this){ list ->
-            adapterRecyclerView.list = list
-            adapterRecyclerView.notifyDataSetChanged()
-        }
+
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getAllMovies()
-    }
+
 
     override fun onDestroy() {
         super.onDestroy()
