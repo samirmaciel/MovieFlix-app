@@ -117,14 +117,17 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
         return MovieEntityApi(arguments?.getString("movieId"), arguments?.getString("title"), arguments?.getString("poster"), arguments?.getString("backdrop"), arguments?.getString("overview"), arguments?.getString("realese"), arguments?.getString("voteAverage"))
     }
 
-    private fun bindMovieOnLayout(movie : MovieEntityApi){
-        Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.backdrop.toString()).into(binding.imagePosterMovie)
+    private fun bindMovieOnLayout(movie : MovieEntityApi) {
+        Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.backdrop.toString())
+            .into(binding.imagePosterMovie)
+
+
         binding.movieTitle.text = movie.title.toString()
         binding.movieOverview.text = movie.overview.toString()
         binding.movieVoteaverage.text = movie.voteAverage.toString()
+        binding.releaseDateText.text = movie.realese!!.split("-")[0].toString()
+
     }
-
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

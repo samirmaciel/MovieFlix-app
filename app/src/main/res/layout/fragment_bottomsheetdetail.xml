@@ -57,30 +57,26 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <TextView
+                    android:id="@+id/movieTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:fontFamily="@font/lexendregular"
+                    android:paddingLeft="20dp"
+                    android:text="Movie name"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/movieTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/lexendregular"
-                        android:paddingLeft="20dp"
-                        android:text="Movie name"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
+                <TextView
+                    android:id="@+id/releaseDateText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="release date"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/lexendregular"/>
 
                 <TextView
                     android:id="@+id/movieOverview"
