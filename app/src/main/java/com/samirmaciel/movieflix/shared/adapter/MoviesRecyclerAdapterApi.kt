@@ -16,7 +16,7 @@ class MoviesRecyclerAdapterApi(val onItemClicked : (MovieEntityApi) -> Unit) : R
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MyViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.image_recycler_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.movie_recycler_item, parent, false)
         )
     }
 
