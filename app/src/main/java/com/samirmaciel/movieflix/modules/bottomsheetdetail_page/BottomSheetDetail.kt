@@ -19,11 +19,10 @@ import com.samirmaciel.movieflix.shared.apidata.MovieApiService
 import com.samirmaciel.movieflix.shared.localdata.AppDatabase
 import com.samirmaciel.movieflix.shared.model.api.ActorModel
 import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
-import com.samirmaciel.movieflix.shared.model.api.toMovieEntityLocal
+import com.samirmaciel.movieflix.shared.model.api.toMovieWatchedEntityLocal
 import com.samirmaciel.movieflix.shared.repository.api.MovieRepositoryApiInterface
-import com.samirmaciel.movieflix.shared.repository.local.MovieRepositoryLocal
+import com.samirmaciel.movieflix.shared.repository.local.MovieWatchedRepositoryLocal
 import com.squareup.picasso.Picasso
-import retrofit2.create
 
 class BottomSheetDetail : BottomSheetDialogFragment() {
 
@@ -33,7 +32,7 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
 
     private val viewModel : BottomSheetViewModel by activityViewModels {
         BottomSheetViewModel.BottomSheetViewModelFactory(
-            MovieRepositoryLocal(AppDatabase.getDatabase(requireContext()).MovieDao()), MovieApiService.getInstance().create(MovieRepositoryApiInterface::class.java)
+            MovieWatchedRepositoryLocal(AppDatabase.getDatabase(requireContext()).MovieWatchedDao()), MovieApiService.getInstance().create(MovieRepositoryApiInterface::class.java)
         )
     }
 
@@ -60,8 +59,8 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
         super.onStart()
 
         movieReturn = getMovieReturn()
-        viewModel.findById(movieReturn.toMovieEntityLocal().movieId)
-        viewModel.getActorsOfMovie(movieReturn.toMovieEntityLocal().movieId)
+        viewModel.findById(movieReturn.toMovieWatchedEntityLocal().movieId)
+        viewModel.getActorsOfMovie(movieReturn.toMovieWatchedEntityLocal().movieId)
 
         checkMovieOnMyList()
 
@@ -91,8 +90,8 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
                         changeAddOrRemoveIcon(false)
                         haveMovieOnMyList = false
                         Toast.makeText(requireContext(), "Filme removido da minha lista", Toast.LENGTH_LONG).show()
-                        viewModel.deleteMovie(movieReturn.toMovieEntityLocal().movieId)
-                        viewModel.movieItemList.postValue(null)
+                        viewModel.deleteMovie(movieReturn.toMovieWatchedEntityLocal().movieId)
+                        viewModel.movieWatchedItemList.postValue(null)
                     })
                     setNegativeButton("Não", null)
                 }
@@ -120,8 +119,6 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
     private fun bindMovieOnLayout(movie : MovieEntityApi) {
         Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.backdrop.toString())
             .into(binding.imagePosterMovie)
-
-
         binding.movieTitle.text = movie.title.toString()
         binding.movieOverview.text = movie.overview.toString()
         binding.movieVoteaverage.text = movie.voteAverage.toString()
@@ -142,11 +139,10 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
     }
 
     private fun checkMovieOnMyList(){
-        viewModel.movieItemList.observe(this){
+        viewModel.movieWatchedItemList.observe(this){
 
             if(it != null){
                 if(it.title.equals(movieReturn.title)){
-                    Toast.makeText(requireContext(), "ObserveMovie", Toast.LENGTH_LONG).show()
                     binding.buttonAddOrRemove.setImageResource(R.drawable.ic_library_add_check)
                     haveMovieOnMyList = true
                 }

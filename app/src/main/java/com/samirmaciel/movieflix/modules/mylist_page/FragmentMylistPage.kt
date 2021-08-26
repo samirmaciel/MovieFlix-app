@@ -1,32 +1,36 @@
 package com.samirmaciel.movieflix.modules.mylist_page
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayoutMediator
 import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.databinding.FragmentMylistBinding
-import com.samirmaciel.movieflix.shared.adapter.MoviesRecyclerAdapterMylist
+import com.samirmaciel.movieflix.modules.mylist_page.fragment_pages.watched_page.WatchedViewModel
+import com.samirmaciel.movieflix.modules.mylist_page.fragment_pages.watchlater_page.WatchLaterViewModel
 import com.samirmaciel.movieflix.shared.adapter.MyListViewPagerAdapter
 import com.samirmaciel.movieflix.shared.localdata.AppDatabase
-import com.samirmaciel.movieflix.shared.repository.local.MovieRepositoryLocal
+import com.samirmaciel.movieflix.shared.repository.local.MovieWatchLaterRepositoryLocal
+import com.samirmaciel.movieflix.shared.repository.local.MovieWatchedRepositoryLocal
 
 class FragmentMylistPage : Fragment(R.layout.fragment_mylist){
 
     private var _binding : FragmentMylistBinding? = null
     private val binding : FragmentMylistBinding get() = _binding!!
 
-    private val viewModel : MylistViewModel by activityViewModels {
-        MylistViewModel.MylistViewModelFactory(
-            MovieRepositoryLocal(
-                AppDatabase.getDatabase(
-                    requireContext()
-                ).MovieDao()
+    private val viewModelWatched : WatchedViewModel by activityViewModels {
+
+        WatchedViewModel.WatchedViewModelFactory(
+            MovieWatchedRepositoryLocal(AppDatabase.getDatabase(requireContext()).MovieWatchedDao())
+        )
+    }
+
+    private val viewModelWatchLater : WatchLaterViewModel by activityViewModels {
+
+        WatchLaterViewModel.WatchLaterViewModelFactory(
+            MovieWatchLaterRepositoryLocal(
+                AppDatabase.getDatabase(requireContext()).MovieWatchLaterDao()
             )
         )
     }
@@ -53,32 +57,6 @@ class FragmentMylistPage : Fragment(R.layout.fragment_mylist){
 
     }
 
-//    private fun initRecyclerView(){
-//        adapterRecyclerView = MoviesRecyclerAdapterMylist({ position, movie ->
-//            val alert = AlertDialog.Builder(requireContext()).apply {
-//                setTitle("Tem certeza que deseja remover este filme?")
-//                setPositiveButton("Sim", DialogInterface.OnClickListener { dialog, id ->
-//                    viewModel.deleteById(movie.movieId)
-//                    adapterRecyclerView.list.remove(movie)
-//                    adapterRecyclerView.notifyItemRemoved(position)
-//                })
-//                setNegativeButton("Não", null)
-//            }.create().show()
-//        }, {
-//
-//        })
-//
-//        binding.mylistRecyclerView.apply {
-//            layoutManager = LinearLayoutManager(requireContext())
-//            adapter = adapterRecyclerView
-//        }
-//    }
-
-    override fun onStart() {
-        super.onStart()
-
-
-    }
 
 
 

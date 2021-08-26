@@ -4,14 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.samirmaciel.movieflix.shared.dao.MovieDao
-import com.samirmaciel.movieflix.shared.model.local.MovieEntityLocal
+import com.samirmaciel.movieflix.shared.dao.MovieWatchLaterDao
+import com.samirmaciel.movieflix.shared.dao.MovieWatchedDao
+import com.samirmaciel.movieflix.shared.model.local.MovieWatchLaterEntityLocal
+import com.samirmaciel.movieflix.shared.model.local.MovieWatchedEntityLocal
 
 
-@Database (entities = [MovieEntityLocal::class], version = 5)
+@Database (entities = [MovieWatchedEntityLocal::class, MovieWatchLaterEntityLocal::class], version = 7)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun MovieDao() : MovieDao
+    abstract fun MovieWatchedDao() : MovieWatchedDao
+    abstract fun MovieWatchLaterDao() : MovieWatchLaterDao
 
     companion object{
         @Volatile

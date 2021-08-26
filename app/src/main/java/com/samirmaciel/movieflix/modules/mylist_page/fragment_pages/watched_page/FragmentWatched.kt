@@ -9,23 +9,20 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.databinding.FragmentWatchedBinding
-import com.samirmaciel.movieflix.modules.mylist_page.MylistViewModel
-import com.samirmaciel.movieflix.shared.adapter.MoviesRecyclerAdapterMylist
+import com.samirmaciel.movieflix.shared.adapter.MoviesWatchedRecyclerAdapter
 import com.samirmaciel.movieflix.shared.localdata.AppDatabase
-import com.samirmaciel.movieflix.shared.repository.local.MovieRepositoryLocal
+import com.samirmaciel.movieflix.shared.repository.local.MovieWatchedRepositoryLocal
 
 class FragmentWatched : Fragment(R.layout.fragment_watched) {
 
     private var _binding : FragmentWatchedBinding? = null
     private val binding : FragmentWatchedBinding get() = _binding!!
-    private lateinit var adapterRecyclerView : MoviesRecyclerAdapterMylist
+    private lateinit var adapterWatchedRecyclerView : MoviesWatchedRecyclerAdapter
 
-    private val viewModel : MylistViewModel by activityViewModels {
-        MylistViewModel.MylistViewModelFactory(
-            MovieRepositoryLocal(
-                AppDatabase.getDatabase(
-                    requireContext()
-                ).MovieDao()
+    private val viewModel : WatchedViewModel by activityViewModels {
+        WatchedViewModel.WatchedViewModelFactory(
+            MovieWatchedRepositoryLocal(
+                AppDatabase.getDatabase(requireContext()).MovieWatchedDao()
             )
         )
     }
@@ -39,20 +36,21 @@ class FragmentWatched : Fragment(R.layout.fragment_watched) {
     override fun onStart() {
         super.onStart()
 
+        viewModel.getAllMovies()
         viewModel.movieList.observe(this){
-            adapterRecyclerView.list = it
-            adapterRecyclerView.notifyDataSetChanged()
+            adapterWatchedRecyclerView.list = it
+            adapterWatchedRecyclerView.notifyDataSetChanged()
         }
     }
 
     private fun initRecyclerView(){
-        adapterRecyclerView = MoviesRecyclerAdapterMylist({ position, movie ->
+        adapterWatchedRecyclerView = MoviesWatchedRecyclerAdapter({ position, movie ->
             val alert = AlertDialog.Builder(requireContext()).apply {
                 setTitle("Tem certeza que deseja remover este filme?")
                 setPositiveButton("Sim", DialogInterface.OnClickListener { dialog, id ->
                     viewModel.deleteById(movie.movieId)
-                    adapterRecyclerView.list.remove(movie)
-                    adapterRecyclerView.notifyItemRemoved(position)
+                    adapterWatchedRecyclerView.list.remove(movie)
+                    adapterWatchedRecyclerView.notifyItemRemoved(position)
                 })
                 setNegativeButton("Não", null)
             }.create().show()
@@ -62,7 +60,7 @@ class FragmentWatched : Fragment(R.layout.fragment_watched) {
 
         binding.watchedRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = adapterRecyclerView
+            adapter = adapterWatchedRecyclerView
         }
     }
 

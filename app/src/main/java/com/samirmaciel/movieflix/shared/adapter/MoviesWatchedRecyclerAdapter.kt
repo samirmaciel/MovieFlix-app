@@ -7,13 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.samirmaciel.movieflix.R
-import com.samirmaciel.movieflix.shared.model.local.MovieEntityLocal
+import com.samirmaciel.movieflix.shared.model.local.MovieWatchedEntityLocal
 import com.squareup.picasso.Picasso
 
-class MoviesRecyclerAdapterMylist(val onButtonClick : (Int, MovieEntityLocal) -> Unit, val onItemClick : (MovieEntityLocal) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MoviesWatchedRecyclerAdapter(private val onButtonClick : (Int, MovieWatchedEntityLocal) -> Unit, private  val onItemClick : (MovieWatchedEntityLocal) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    var list : MutableList<MovieEntityLocal> = arrayListOf()
+    var list : MutableList<MovieWatchedEntityLocal> = arrayListOf()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -47,19 +47,19 @@ class MoviesRecyclerAdapterMylist(val onButtonClick : (Int, MovieEntityLocal) ->
         val buttonRemove = itemView.findViewById<ImageView>(R.id.buttonRemove)
 
         fun bind(
-            onButtonClick: (Int, MovieEntityLocal) -> Unit,
-            onItemClick: (MovieEntityLocal) -> Unit,
-            movieEntityLocal: MovieEntityLocal
+            onButtonClick: (Int, MovieWatchedEntityLocal) -> Unit,
+            onItemClick: (MovieWatchedEntityLocal) -> Unit,
+            movieWatchedEntityLocal: MovieWatchedEntityLocal
         ) {
 
             Picasso.get()
-                .load("https://image.tmdb.org/t/p/w500" + movieEntityLocal.poster.toString())
+                .load("https://image.tmdb.org/t/p/w500" + movieWatchedEntityLocal.poster.toString())
                 .into(imageMovie)
-            titleMovie.text = movieEntityLocal.title
-            rateMovie.text = movieEntityLocal.voteAverage
+            titleMovie.text = movieWatchedEntityLocal.title
+            rateMovie.text = movieWatchedEntityLocal.voteAverage
 
             buttonRemove.setOnClickListener {
-                onButtonClick(adapterPosition, movieEntityLocal)
+                onButtonClick(adapterPosition, movieWatchedEntityLocal)
             }
         }
     }

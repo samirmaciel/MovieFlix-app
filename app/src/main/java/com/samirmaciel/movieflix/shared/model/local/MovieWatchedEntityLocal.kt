@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
 
 @Entity
-data class MovieEntityLocal(
+data class MovieWatchedEntityLocal(
 
     @PrimaryKey val movieId : String,
     @ColumnInfo val title : String,
