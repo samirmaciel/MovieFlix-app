@@ -8,25 +8,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.databinding.FragmentBottomsheetdetailBinding
+import com.samirmaciel.movieflix.shared.adapter.ActorsRecyclerAdapter
+import com.samirmaciel.movieflix.shared.apidata.MovieApiService
 import com.samirmaciel.movieflix.shared.localdata.AppDatabase
+import com.samirmaciel.movieflix.shared.model.api.ActorModel
 import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
 import com.samirmaciel.movieflix.shared.model.api.toMovieEntityLocal
+import com.samirmaciel.movieflix.shared.repository.api.MovieRepositoryApiInterface
 import com.samirmaciel.movieflix.shared.repository.local.MovieRepositoryLocal
 import com.squareup.picasso.Picasso
+import retrofit2.create
 
 class BottomSheetDetail : BottomSheetDialogFragment() {
 
     private var haveMovieOnMyList : Boolean = false
     private lateinit var movieReturn : MovieEntityApi
+    private lateinit var actorsRecyclerAdapter : ActorsRecyclerAdapter
 
     private val viewModel : BottomSheetViewModel by activityViewModels {
         BottomSheetViewModel.BottomSheetViewModelFactory(
-            MovieRepositoryLocal(AppDatabase.getDatabase(requireContext()).MovieDao())
+            MovieRepositoryLocal(AppDatabase.getDatabase(requireContext()).MovieDao()), MovieApiService.getInstance().create(MovieRepositoryApiInterface::class.java)
         )
     }
 
@@ -45,8 +52,8 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentBottomsheetdetailBinding.bind(view)
-
-        expandBottomSheet()
+        initRecycler()
+       //expandBottomSheet()
     }
 
     override fun onStart() {
@@ -54,10 +61,22 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
 
         movieReturn = getMovieReturn()
         viewModel.findById(movieReturn.toMovieEntityLocal().movieId)
+        viewModel.getActorsOfMovie(movieReturn.toMovieEntityLocal().movieId)
 
         checkMovieOnMyList()
 
         bindMovieOnLayout(movieReturn)
+
+        viewModel.castMovieList.observe(this){
+            var actorsList : MutableList<ActorModel> = arrayListOf()
+            for(actor in it){
+                if(actor.known_for_department.equals("Acting") && actor.profile_path != null){
+                    actorsList.add(actor)
+                }
+            }
+            actorsRecyclerAdapter.list = actorsList
+            actorsRecyclerAdapter.notifyDataSetChanged()
+        }
 
         binding.buttonAddOrRemove.setOnClickListener{
             if (!haveMovieOnMyList){
@@ -73,13 +92,23 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
                         haveMovieOnMyList = false
                         Toast.makeText(requireContext(), "Filme removido da minha lista", Toast.LENGTH_LONG).show()
                         viewModel.deleteMovie(movieReturn.toMovieEntityLocal().movieId)
-                        viewModel.movieItem.postValue(null)
+                        viewModel.movieItemList.postValue(null)
                     })
                     setNegativeButton("Não", null)
                 }
                 alert.create().show()
             }
         }
+    }
+
+    private fun initRecycler(){
+        actorsRecyclerAdapter = ActorsRecyclerAdapter{}
+
+        val actorsRecyclerView = binding.castRecyclerView.apply {
+            adapter = actorsRecyclerAdapter
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        }
+
     }
 
 
@@ -110,7 +139,7 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
     }
 
     private fun checkMovieOnMyList(){
-        viewModel.movieItem.observe(this){
+        viewModel.movieItemList.observe(this){
 
             if(it != null){
                 if(it.title.equals(movieReturn.title)){

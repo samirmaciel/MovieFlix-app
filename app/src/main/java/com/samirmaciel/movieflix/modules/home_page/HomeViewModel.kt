@@ -28,7 +28,7 @@ class HomeViewModel(private val repository: MovieRepositoryApiInterface) : ViewM
 
     fun updatePopularList() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getPopularMovies("b2b2968f90966aca368661a132319376").enqueue(object : Callback<MovieResponse> {
+            repository.getPopularMovies().enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(
                     call: Call<MovieResponse>,
                     response: Response<MovieResponse>
@@ -55,7 +55,8 @@ class HomeViewModel(private val repository: MovieRepositoryApiInterface) : ViewM
                 }
 
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                    Log.d("TOPRATEDERROR", "onFailure: " + t.message.toString())
+                    val list : MutableList<MovieEntityApi> = ArrayList()
+                    topratedList.postValue(list)
                 }
             })
         }
@@ -72,7 +73,7 @@ class HomeViewModel(private val repository: MovieRepositoryApiInterface) : ViewM
                 }
 
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                    Log.d("MOVIESUPCOMING", "onFailure: " + t.message.toString())
+
                 }
 
             })

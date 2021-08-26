@@ -2,6 +2,7 @@ package com.samirmaciel.movieflix.modules.home_page
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,10 +49,15 @@ class FragmentHomePage : Fragment(R.layout.fragment_home) {
         }
 
         viewModel.topratedList.observe(this) {  list ->
-            mToprateAdapterApi.list = list
-            mPagerSliderAdapter.setListSliders(list)
-            mPagerSliderAdapter.notifyDataSetChanged()
-            mToprateAdapterApi.notifyDataSetChanged()
+            if(list.size > 0){
+                mToprateAdapterApi.list = list
+                mPagerSliderAdapter.setListSliders(list)
+                mPagerSliderAdapter.notifyDataSetChanged()
+                mToprateAdapterApi.notifyDataSetChanged()
+            }else{
+                Toast.makeText(requireContext(), "Sem conexão com a internet", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         viewModel.upcomingList.observe(this){ list ->
