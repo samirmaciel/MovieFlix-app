@@ -7,41 +7,56 @@ import androidx.lifecycle.viewModelScope
 import com.samirmaciel.movieflix.shared.model.api.ActorModel
 import com.samirmaciel.movieflix.shared.model.api.CastResponse
 import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
+import com.samirmaciel.movieflix.shared.model.local.MovieWatchLaterEntityLocal
 import com.samirmaciel.movieflix.shared.model.local.MovieWatchedEntityLocal
 import com.samirmaciel.movieflix.shared.repository.api.MovieRepositoryApiInterface
+import com.samirmaciel.movieflix.shared.repository.local.MovieWatchLaterRepositoryLocal
 import com.samirmaciel.movieflix.shared.repository.local.MovieWatchedRepositoryLocal
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class BottomSheetViewModel(private val watchedRepositoryLocal : MovieWatchedRepositoryLocal, private val repositoryApi: MovieRepositoryApiInterface) : ViewModel() {
+class BottomSheetViewModel(private val watchedRepositoryLocal : MovieWatchedRepositoryLocal, private val watchLaterRepositoryLocal : MovieWatchLaterRepositoryLocal, private val repositoryApi: MovieRepositoryApiInterface) : ViewModel() {
 
-    var movieWatchedEntityApiList : MutableLiveData<MutableList<MovieWatchedEntityLocal>> = MutableLiveData()
-    var movieWatchedItemList : MutableLiveData<MovieWatchedEntityLocal> = MutableLiveData()
+    var movieWatchedItem : MutableLiveData<MovieWatchedEntityLocal> = MutableLiveData()
+    var movieWatchLaterItem : MutableLiveData<MovieWatchLaterEntityLocal> = MutableLiveData()
     var castMovieList : MutableLiveData<MutableList<ActorModel>> = MutableLiveData()
 
-    fun getAllMovies(){
+
+
+    fun saveMovieOnWatchLater(movie : MovieEntityApi){
         viewModelScope.launch {
-            movieWatchedEntityApiList.postValue(watchedRepositoryLocal.findAll())
+            watchLaterRepositoryLocal.save(movie)
         }
     }
 
-    fun saveMovie(movie : MovieEntityApi){
+    fun saveMovieOnWatched(movie : MovieEntityApi){
         viewModelScope.launch {
             watchedRepositoryLocal.save(movie)
         }
     }
 
-    fun findById(id : String){
+    fun findByIdOnWatchlater(movieId : String){
         viewModelScope.launch {
-            movieWatchedItemList.postValue(watchedRepositoryLocal.findById(id))
-
+            movieWatchLaterItem.postValue(watchLaterRepositoryLocal.findById(movieId))
         }
-
     }
 
-    fun deleteMovie(movieId : String){
+    fun findByIdOnWatched(movieId : String){
+        viewModelScope.launch {
+            movieWatchedItem.postValue(watchedRepositoryLocal.findById(movieId))
+
+        }
+    }
+
+    fun deleteMovieOnWatchLater(movieId: String){
+        viewModelScope.launch {
+            watchLaterRepositoryLocal.deleteById(movieId)
+        }
+    }
+
+    fun deleteMovieOnWatched(movieId : String){
         viewModelScope.launch {
             watchedRepositoryLocal.deleteById(movieId)
         }
@@ -67,9 +82,9 @@ class BottomSheetViewModel(private val watchedRepositoryLocal : MovieWatchedRepo
 
 
 
-    class BottomSheetViewModelFactory(private val watchedRepositoryLocal: MovieWatchedRepositoryLocal, private val repositoryApi: MovieRepositoryApiInterface) : ViewModelProvider.Factory{
+    class BottomSheetViewModelFactory(private val watchedRepositoryLocal: MovieWatchedRepositoryLocal, private val watchLaterRepositoryLocal: MovieWatchLaterRepositoryLocal, private val repositoryApi: MovieRepositoryApiInterface) : ViewModelProvider.Factory{
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return BottomSheetViewModel(watchedRepositoryLocal, repositoryApi) as T
+            return BottomSheetViewModel(watchedRepositoryLocal, watchLaterRepositoryLocal, repositoryApi) as T
         }
 
     }

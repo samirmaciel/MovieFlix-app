@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_add_box.xml" value="0.37447916666666664" />
         <entry key="app/src/main/res/layout/cast_recycler_item.xml" value="0.9" />
         <entry key="app/src/main/res/layout/fragment_bottomsheetdetail.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/fragment_mylist.xml" value="0.2" />

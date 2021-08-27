@@ -45,7 +45,7 @@ class FragmentMylistPage : Fragment(R.layout.fragment_mylist){
         TabLayoutMediator(binding.tabLayout, binding.viewPagerForTab){tab, position ->
             when(position){
                 0 -> {
-                    tab.text = "Assitir mais tarde"
+                    tab.text = "Assistir mais tarde"
                 }
 
                 1-> {

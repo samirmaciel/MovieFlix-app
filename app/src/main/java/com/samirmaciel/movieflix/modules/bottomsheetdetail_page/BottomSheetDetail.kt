@@ -2,6 +2,7 @@ package com.samirmaciel.movieflix.modules.bottomsheetdetail_page
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,20 +20,25 @@ import com.samirmaciel.movieflix.shared.apidata.MovieApiService
 import com.samirmaciel.movieflix.shared.localdata.AppDatabase
 import com.samirmaciel.movieflix.shared.model.api.ActorModel
 import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
+import com.samirmaciel.movieflix.shared.model.api.toMovieWatchLaterEntityLocal
 import com.samirmaciel.movieflix.shared.model.api.toMovieWatchedEntityLocal
 import com.samirmaciel.movieflix.shared.repository.api.MovieRepositoryApiInterface
+import com.samirmaciel.movieflix.shared.repository.local.MovieWatchLaterRepositoryLocal
 import com.samirmaciel.movieflix.shared.repository.local.MovieWatchedRepositoryLocal
 import com.squareup.picasso.Picasso
 
 class BottomSheetDetail : BottomSheetDialogFragment() {
 
-    private var haveMovieOnMyList : Boolean = false
+    private var haveMovieOnWatched : Boolean = false
+    private var haveMovieOnListPlayLater = false
     private lateinit var movieReturn : MovieEntityApi
     private lateinit var actorsRecyclerAdapter : ActorsRecyclerAdapter
 
     private val viewModel : BottomSheetViewModel by activityViewModels {
         BottomSheetViewModel.BottomSheetViewModelFactory(
-            MovieWatchedRepositoryLocal(AppDatabase.getDatabase(requireContext()).MovieWatchedDao()), MovieApiService.getInstance().create(MovieRepositoryApiInterface::class.java)
+            MovieWatchedRepositoryLocal(AppDatabase.getDatabase(requireContext()).MovieWatchedDao()),
+            MovieWatchLaterRepositoryLocal(AppDatabase.getDatabase(requireContext()).MovieWatchLaterDao()),
+            MovieApiService.getInstance().create(MovieRepositoryApiInterface::class.java)
         )
     }
 
@@ -59,10 +65,11 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
         super.onStart()
 
         movieReturn = getMovieReturn()
-        viewModel.findById(movieReturn.toMovieWatchedEntityLocal().movieId)
+        viewModel.findByIdOnWatched(movieReturn.toMovieWatchedEntityLocal().movieId)
         viewModel.getActorsOfMovie(movieReturn.toMovieWatchedEntityLocal().movieId)
 
-        checkMovieOnMyList()
+        checkWatchedMovie()
+        checkWatchLaterMovie()
 
         bindMovieOnLayout(movieReturn)
 
@@ -77,26 +84,12 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
             actorsRecyclerAdapter.notifyDataSetChanged()
         }
 
-        binding.buttonAddOrRemove.setOnClickListener{
-            if (!haveMovieOnMyList){
-                changeAddOrRemoveIcon(true)
-                haveMovieOnMyList = true
-                Toast.makeText(requireContext(), "Filme adicionado na minha lista", Toast.LENGTH_LONG).show()
-                viewModel.saveMovie(movieReturn)
-            }else{
-                val alert = AlertDialog.Builder(requireContext()).apply {
-                    setTitle("Deseja remover este filme da sua lista?")
-                    setPositiveButton("Sim", DialogInterface.OnClickListener{ dialog, id ->
-                        changeAddOrRemoveIcon(false)
-                        haveMovieOnMyList = false
-                        Toast.makeText(requireContext(), "Filme removido da minha lista", Toast.LENGTH_LONG).show()
-                        viewModel.deleteMovie(movieReturn.toMovieWatchedEntityLocal().movieId)
-                        viewModel.movieWatchedItemList.postValue(null)
-                    })
-                    setNegativeButton("Não", null)
-                }
-                alert.create().show()
-            }
+        binding.buttonAddToPlayLater.setOnClickListener{
+            addOrRemoveWatchLaterMovie()
+        }
+
+        binding.buttonWatchedMovie.setOnClickListener{
+            addOrRemoveMovieWatched()
         }
     }
 
@@ -130,23 +123,117 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
         _binding = null
     }
 
-    private fun changeAddOrRemoveIcon(set : Boolean){
+    private fun changeWatchedMovieCheck(set : Boolean){
         if(set){
-            binding.buttonAddOrRemove.setImageResource(R.drawable.ic_library_add_check)
+            binding.buttonWatchedMovie.apply {
+                setImageResource(R.drawable.ic_library_add_check)
+                setColorFilter(Color.parseColor("#0BB105"))
+            }
+
         }else{
-            binding.buttonAddOrRemove.setImageResource(R.drawable.ic_add_box)
+            binding.buttonWatchedMovie.apply {
+                setImageResource(R.drawable.ic_add_box)
+                setColorFilter(Color.WHITE)
+            }
         }
     }
 
-    private fun checkMovieOnMyList(){
-        viewModel.movieWatchedItemList.observe(this){
+    private fun changeAddToPlayLaterCheck(set : Boolean){
+        if(set){
+            binding.buttonAddToPlayLater.apply {
+                setImageResource(R.drawable.ic_baseline_playlist_add_check)
+                setColorFilter(Color.parseColor("#0BB105"))
+            }
+        }else{
+            binding.buttonAddToPlayLater.apply {
+                setImageResource(R.drawable.ic_baseline_playlist_add)
+                setColorFilter(Color.WHITE)
+            }
+        }
+    }
 
+    private fun checkWatchLaterMovie(){
+        viewModel.movieWatchLaterItem.observe(this){
             if(it != null){
-                if(it.title.equals(movieReturn.title)){
-                    binding.buttonAddOrRemove.setImageResource(R.drawable.ic_library_add_check)
-                    haveMovieOnMyList = true
+                if(it.movieId.equals(movieReturn.id)){
+                    binding.buttonAddToPlayLater.apply {
+                        setImageResource(R.drawable.ic_baseline_playlist_add_check)
+                        setColorFilter(Color.parseColor("#0BB105"))
+                    }
+                    haveMovieOnListPlayLater = true
                 }
             }
+        }
+    }
+
+    private fun checkWatchedMovie(){
+        viewModel.movieWatchedItem.observe(this){
+
+            if(it != null){
+                if(it.movieId.equals(movieReturn.id)){
+                    binding.buttonWatchedMovie.apply {
+                        setImageResource(R.drawable.ic_library_add_check)
+                        setColorFilter(Color.parseColor("#0BB105"))
+                    }
+
+                    binding.buttonAddToPlayLater.apply {
+                        isEnabled = false
+                        setColorFilter(Color.GRAY)
+                    }
+                    haveMovieOnWatched = true
+                }
+            }
+        }
+    }
+
+    private fun addOrRemoveMovieWatched(){
+        if (!haveMovieOnWatched){
+            changeWatchedMovieCheck(true)
+            haveMovieOnWatched = true
+            binding.buttonAddToPlayLater.isEnabled = false
+            binding.buttonAddToPlayLater.setColorFilter(Color.GRAY)
+            Toast.makeText(requireContext(), "Filme adicionado na minha lista", Toast.LENGTH_LONG).show()
+            viewModel.deleteMovieOnWatchLater(movieReturn.toMovieWatchLaterEntityLocal().movieId)
+            viewModel.saveMovieOnWatched(movieReturn)
+        }else{
+            val alert = AlertDialog.Builder(requireContext()).apply {
+                setTitle("Deseja remover este filme da sua lista?")
+                setPositiveButton("Sim", DialogInterface.OnClickListener{ dialog, id ->
+                    changeWatchedMovieCheck(false)
+                    haveMovieOnListPlayLater = false
+                    binding.buttonAddToPlayLater.isEnabled = true
+                    binding.buttonAddToPlayLater.setColorFilter(Color.WHITE)
+                    haveMovieOnWatched = false
+                    Toast.makeText(requireContext(), "Filme removido da minha lista", Toast.LENGTH_LONG).show()
+                    viewModel.deleteMovieOnWatched(movieReturn.toMovieWatchedEntityLocal().movieId)
+                    viewModel.movieWatchedItem.postValue(null)
+                })
+                setNegativeButton("Não", null)
+            }
+            alert.create().show()
+        }
+    }
+
+    private fun addOrRemoveWatchLaterMovie(){
+        if(!haveMovieOnListPlayLater){
+            changeAddToPlayLaterCheck(true)
+            haveMovieOnListPlayLater = true
+            Toast.makeText(requireContext(), "Filme adicionado ao assistir mais tarde", Toast.LENGTH_SHORT).show()
+            viewModel.saveMovieOnWatchLater(movieReturn)
+        }else{
+            val alert = AlertDialog.Builder(requireContext()).apply {
+                setTitle("Deseja remover este filme da lista assistir mais tarde?")
+                setPositiveButton("Sim", DialogInterface.OnClickListener{
+                        dialog, id ->
+                    changeAddToPlayLaterCheck(false)
+                    haveMovieOnListPlayLater = false
+                    Toast.makeText(requireContext(), "Filme removido da lista assistir mais tarde", Toast.LENGTH_SHORT).show()
+                    viewModel.deleteMovieOnWatchLater(movieReturn.toMovieWatchLaterEntityLocal().movieId)
+                    viewModel.movieWatchLaterItem.postValue(null)
+                })
+                setNegativeButton("Não", null)
+            }
+            alert.create().show()
         }
     }
 
