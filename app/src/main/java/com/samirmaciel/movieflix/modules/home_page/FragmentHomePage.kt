@@ -137,7 +137,21 @@ class FragmentHomePage : Fragment(R.layout.fragment_home) {
     }
 
     private fun initViewPager(){
-        mPagerSliderAdapter = MoviesSliderAdapter(requireContext())
+        mPagerSliderAdapter = MoviesSliderAdapter(requireContext()){
+            val bottomsheet = BottomSheetDetail()
+            val bundle = Bundle().apply {
+                putString("movieId", it.id)
+                putString("title", it.title)
+                putString("poster", it.poster)
+                putString("backdrop", it.backdrop)
+                putString("overview", it.overview)
+                putString("realese", it.realese)
+                putString("voteAverage", it.voteAverage)
+            }
+
+            bottomsheet.arguments = bundle
+            bottomsheet.show(childFragmentManager, "bottomsheetViewPager")
+        }
         binding.viewPagerSlider.adapter = mPagerSliderAdapter
     }
 

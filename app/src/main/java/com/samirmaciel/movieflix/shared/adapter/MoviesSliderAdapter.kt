@@ -11,7 +11,7 @@ import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.shared.model.api.MovieEntityApi
 import com.squareup.picasso.Picasso
 
-class MoviesSliderAdapter(private val mContext : Context) : PagerAdapter() {
+class MoviesSliderAdapter(private val mContext : Context, val onItemClick : (MovieEntityApi) -> Unit) : PagerAdapter() {
 
     private var mSlidersList : MutableList<MovieEntityApi> = ArrayList()
 
@@ -30,6 +30,10 @@ class MoviesSliderAdapter(private val mContext : Context) : PagerAdapter() {
 
         val movieTitle = view.findViewById<TextView>(R.id.movieTitle)
         val movieImage = view.findViewById<ImageView>(R.id.movieImage)
+
+        movieImage.setOnClickListener{
+            onItemClick(this.mSlidersList[position])
+        }
 
         movieTitle.text = this.mSlidersList[position].title.toString()
         Picasso.get().load("https://image.tmdb.org/t/p/w500" + this.mSlidersList[position].backdrop.toString()).into(movieImage)
