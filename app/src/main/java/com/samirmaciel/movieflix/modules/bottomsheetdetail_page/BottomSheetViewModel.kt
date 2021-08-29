@@ -24,7 +24,6 @@ class BottomSheetViewModel(private val watchedRepositoryLocal : MovieWatchedRepo
     var castMovieList : MutableLiveData<MutableList<ActorModel>> = MutableLiveData()
 
 
-
     fun saveMovieOnWatchLater(movie : MovieEntityApi){
         viewModelScope.launch {
             watchLaterRepositoryLocal.save(movie)

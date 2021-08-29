@@ -66,6 +66,7 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
 
         movieReturn = getMovieReturn()
         viewModel.findByIdOnWatched(movieReturn.toMovieWatchedEntityLocal().movieId)
+        viewModel.findByIdOnWatchlater(movieReturn.toMovieWatchLaterEntityLocal().movieId)
         viewModel.getActorsOfMovie(movieReturn.toMovieWatchedEntityLocal().movieId)
 
         checkWatchedMovie()
@@ -190,8 +191,12 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
         if (!haveMovieOnWatched){
             changeWatchedMovieCheck(true)
             haveMovieOnWatched = true
-            binding.buttonAddToPlayLater.isEnabled = false
-            binding.buttonAddToPlayLater.setColorFilter(Color.GRAY)
+            binding.buttonAddToPlayLater.apply {
+                setImageResource(R.drawable.ic_baseline_playlist_add)
+                isEnabled = false
+                setColorFilter(Color.GRAY)
+            }
+
             Toast.makeText(requireContext(), "Filme adicionado na minha lista", Toast.LENGTH_LONG).show()
             viewModel.deleteMovieOnWatchLater(movieReturn.toMovieWatchLaterEntityLocal().movieId)
             viewModel.saveMovieOnWatched(movieReturn)
@@ -201,8 +206,12 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
                 setPositiveButton("Sim", DialogInterface.OnClickListener{ dialog, id ->
                     changeWatchedMovieCheck(false)
                     haveMovieOnListPlayLater = false
-                    binding.buttonAddToPlayLater.isEnabled = true
-                    binding.buttonAddToPlayLater.setColorFilter(Color.WHITE)
+                    binding.buttonAddToPlayLater.apply {
+                        setImageResource(R.drawable.ic_baseline_playlist_add)
+                        isEnabled = true
+                        setColorFilter(Color.WHITE)
+                    }
+
                     haveMovieOnWatched = false
                     Toast.makeText(requireContext(), "Filme removido da minha lista", Toast.LENGTH_LONG).show()
                     viewModel.deleteMovieOnWatched(movieReturn.toMovieWatchedEntityLocal().movieId)
