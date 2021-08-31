@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.databinding.FragmentWatchLaterBinding
+import com.samirmaciel.movieflix.modules.bottomsheetdetail_page.BottomSheetDetail
 import com.samirmaciel.movieflix.shared.adapter.MoviesWatchLaterRecyclerAdapter
 import com.samirmaciel.movieflix.shared.adapter.MoviesWatchedRecyclerAdapter
 import com.samirmaciel.movieflix.shared.localdata.AppDatabase
@@ -58,7 +59,20 @@ class FragmentWatchLater : Fragment(R.layout.fragment_watch_later) {
                 setNegativeButton("Não", null)
             }.create().show()
         }, {
+            val bottomsheet = BottomSheetDetail()
+            val bundle = Bundle().apply {
+                putString("movieId", it.movieId)
+                putString("title", it.title)
+                putString("poster", it.poster)
+                putString("backdrop", it.backdrop)
+                putString("overview", it.overview)
+                putString("realese", it.realese)
+                putString("voteAverage", it.voteAverage)
+                putBoolean("mylistCall", true)
+            }
 
+            bottomsheet.arguments = bundle
+            bottomsheet.show(childFragmentManager, "bottomsheetToprated")
         })
 
         binding.watchLaterRecyclerView.apply {

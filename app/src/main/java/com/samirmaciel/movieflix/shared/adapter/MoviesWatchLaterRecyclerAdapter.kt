@@ -43,6 +43,7 @@ class MoviesWatchLaterRecyclerAdapter(val onButtonClick : (Int, MovieWatchLaterE
     inner class MyViewHolder(itemView: View, val parent : ViewGroup) : RecyclerView.ViewHolder(itemView) {
 
         val imageMovie = itemView.findViewById<ImageView>(R.id.movieImage_mylist)
+        val realeseDate = itemView.findViewById<TextView>(R.id.realeseMovieDateText)
         val titleMovie = itemView.findViewById<TextView>(R.id.movieTextName_mylist)
         val rateMovie = itemView.findViewById<TextView>(R.id.movieRate_mylist)
         val buttonRemove = itemView.findViewById<ImageView>(R.id.buttonRemove)
@@ -58,6 +59,12 @@ class MoviesWatchLaterRecyclerAdapter(val onButtonClick : (Int, MovieWatchLaterE
                 .into(imageMovie)
             titleMovie.text = movie.title
             rateMovie.text = movie.voteAverage
+            realeseDate.text = movie.realese.split("-")[0]
+
+
+            imageMovie.setOnClickListener{
+                onItemClick(movie)
+            }
 
             buttonRemove.setOnClickListener {
                 onButtonClick(adapterPosition, movie)

@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.databinding.FragmentWatchedBinding
+import com.samirmaciel.movieflix.modules.bottomsheetdetail_page.BottomSheetDetail
 import com.samirmaciel.movieflix.shared.adapter.MoviesWatchedRecyclerAdapter
 import com.samirmaciel.movieflix.shared.localdata.AppDatabase
 import com.samirmaciel.movieflix.shared.repository.local.MovieWatchedRepositoryLocal
@@ -55,7 +56,20 @@ class FragmentWatched : Fragment(R.layout.fragment_watched) {
                 setNegativeButton("Não", null)
             }.create().show()
         }, {
+            val bottomsheet = BottomSheetDetail()
+            val bundle = Bundle().apply {
+                putString("movieId", it.movieId)
+                putString("title", it.title)
+                putString("poster", it.poster)
+                putString("backdrop", it.backdrop)
+                putString("overview", it.overview)
+                putString("realese", it.realese)
+                putString("voteAverage", it.voteAverage)
+                putBoolean("mylistCall", true)
+            }
 
+            bottomsheet.arguments = bundle
+            bottomsheet.show(childFragmentManager, "bottomsheetToprated")
         })
 
         binding.watchedRecyclerView.apply {

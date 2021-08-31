@@ -49,17 +49,21 @@ class MoviesWatchedRecyclerAdapter(private val onButtonClick : (Int, MovieWatche
         fun bind(
             onButtonClick: (Int, MovieWatchedEntityLocal) -> Unit,
             onItemClick: (MovieWatchedEntityLocal) -> Unit,
-            movieWatchedEntityLocal: MovieWatchedEntityLocal
+            movie: MovieWatchedEntityLocal
         ) {
 
             Picasso.get()
-                .load("https://image.tmdb.org/t/p/w500" + movieWatchedEntityLocal.poster.toString())
+                .load("https://image.tmdb.org/t/p/w500" + movie.poster.toString())
                 .into(imageMovie)
-            titleMovie.text = movieWatchedEntityLocal.title
-            rateMovie.text = movieWatchedEntityLocal.voteAverage
+            titleMovie.text = movie.title
+            rateMovie.text = movie.voteAverage
+
+            imageMovie.setOnClickListener{
+                onItemClick(movie)
+            }
 
             buttonRemove.setOnClickListener {
-                onButtonClick(adapterPosition, movieWatchedEntityLocal)
+                onButtonClick(adapterPosition, movie)
             }
         }
     }

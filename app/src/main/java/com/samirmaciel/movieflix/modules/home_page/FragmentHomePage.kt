@@ -141,6 +141,7 @@ class FragmentHomePage : Fragment(R.layout.fragment_home) {
                 putString("overview", it.overview)
                 putString("realese", it.realese)
                 putString("voteAverage", it.voteAverage)
+                putBoolean("mylistCall", false)
             }
 
             bottomsheet.arguments = bundle
@@ -157,6 +158,7 @@ class FragmentHomePage : Fragment(R.layout.fragment_home) {
                 putString("overview", it.overview)
                 putString("realese", it.realese)
                 putString("voteAverage", it.voteAverage)
+                putBoolean("mylistCall", false)
             }
             bottomsheet.arguments = bundle
             bottomsheet.show(childFragmentManager, "bottomsheetPopular")
@@ -172,6 +174,7 @@ class FragmentHomePage : Fragment(R.layout.fragment_home) {
                 putString("overview", it.overview)
                 putString("realese", it.realese)
                 putString("voteAverage", it.voteAverage)
+                putBoolean("mylistCall", false)
             }
 
             bottomsheet.arguments = bundle

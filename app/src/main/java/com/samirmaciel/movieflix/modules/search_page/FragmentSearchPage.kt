@@ -83,6 +83,7 @@ class FragmentSearchPage : Fragment(R.layout.fragment_search){
                 putString("overview", it.overview)
                 putString("realese", it.realese)
                 putString("voteAverage", it.voteAverage)
+                putBoolean("mylistCall", false)
             }
 
             bottomsheet.arguments = bundle

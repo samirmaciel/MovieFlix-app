@@ -64,6 +64,14 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
     override fun onStart() {
         super.onStart()
 
+        val fragmentCall : Boolean = requireArguments().getBoolean("mylistCall", false)
+
+        if(fragmentCall){
+            binding.buttonAddToPlayLater.isEnabled = false
+            binding.buttonAddToPlayLater.visibility = View.GONE
+            binding.buttonWatchedMovie.visibility = View.GONE
+            binding.buttonWatchedMovie.isEnabled = false
+        }
         movieReturn = getMovieReturn()
         viewModel.findByIdOnWatched(movieReturn.toMovieWatchedEntityLocal().movieId)
         viewModel.findByIdOnWatchlater(movieReturn.toMovieWatchLaterEntityLocal().movieId)
