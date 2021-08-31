@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.37916666666666665" />
         <entry key="app/src/main/res/layout/fragment_mylist.xml" value="0.2" />
         <entry key="app/src/main/res/layout/image_recycler_item.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/movie_recycler_item.xml" value="0.33" />
       </map>
     </option>
   </component>

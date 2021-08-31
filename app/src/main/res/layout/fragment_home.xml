@@ -30,15 +30,44 @@
                     android:layout_height="275dp"/>
 
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="15dp"
-                    android:text="@string/popular_movies"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="15dp"
+                        android:text="@string/popular_movies"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:orientation="horizontal">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/loadArrowRecyclerPopular"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:rotation="-90"
+                            android:visibility="gone"
+                            android:layout_marginEnd="5dp"
+                            android:foregroundGravity="right"
+                            app:lottie_loop="true"
+                            app:lottie_autoPlay="true"
+                            app:lottie_rawRes="@raw/arrowanimated"/>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
 
 
 
@@ -49,19 +78,43 @@
                     android:layout_marginHorizontal="10dp"
                     tools:listitem="@layout/movie_recycler_item" />
 
-
-
-
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="15dp"
-                    android:text="@string/top_rated"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="15dp"
+                        android:text="@string/top_rated"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:orientation="horizontal">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/loadArrowRecyclerToprated"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:rotation="-90"
+                            android:visibility="gone"
+                            android:layout_marginEnd="5dp"
+                            android:foregroundGravity="right"
+                            app:lottie_loop="true"
+                            app:lottie_autoPlay="true"
+                            app:lottie_rawRes="@raw/arrowanimated"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/topraredRecycler"
@@ -70,15 +123,43 @@
                     android:layout_marginHorizontal="10dp"
                     tools:listitem="@layout/movie_recycler_item" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="15dp"
-                    android:text="@string/movies_upcoming"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="15dp"
+                        android:text="@string/movies_upcoming"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:orientation="horizontal">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/loadArrowRecyclerUpcoming"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:rotation="-90"
+                            android:visibility="gone"
+                            android:layout_marginEnd="5dp"
+                            android:foregroundGravity="right"
+                            app:lottie_loop="true"
+                            app:lottie_autoPlay="true"
+                            app:lottie_rawRes="@raw/arrowanimated"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/upcomingRecycler"

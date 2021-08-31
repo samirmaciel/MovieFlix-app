@@ -1,6 +1,7 @@
 package com.samirmaciel.movieflix.modules.home_page
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.widget.NestedScrollView
@@ -81,8 +82,13 @@ class FragmentHomePage : Fragment(R.layout.fragment_home) {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
-                if(!binding.popularRecycler.canScrollHorizontally(1)){
+                if(!recyclerView.canScrollHorizontally(1)){
+                    binding.loadArrowRecyclerPopular.visibility = View.VISIBLE
                     viewModel.updatePopularList(viewModel.popularPage)
+                }
+
+                if(recyclerView.canScrollHorizontally(1)){
+                    binding.loadArrowRecyclerPopular.visibility = View.GONE
                 }
             }
         })
@@ -91,8 +97,13 @@ class FragmentHomePage : Fragment(R.layout.fragment_home) {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
-                if(!binding.topraredRecycler.canScrollHorizontally(1)){
+                if(!recyclerView.canScrollHorizontally(1)){
+                    binding.loadArrowRecyclerToprated.visibility = View.VISIBLE
                     viewModel.updateTopratedList(viewModel.ratedPage)
+                }
+
+                if(recyclerView.canScrollHorizontally(1)){
+                    binding.loadArrowRecyclerToprated.visibility = View.GONE
                 }
             }
         })
@@ -101,8 +112,13 @@ class FragmentHomePage : Fragment(R.layout.fragment_home) {
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if(!binding.upcomingRecycler.canScrollHorizontally(1)){
+                if(!recyclerView.canScrollHorizontally(1)){
+                    binding.loadArrowRecyclerUpcoming.visibility = View.VISIBLE
                     viewModel.updateUpcomingList(viewModel.upcomingPage)
+                }
+
+                if(recyclerView.canScrollHorizontally(1)){
+                    binding.loadArrowRecyclerUpcoming.visibility = View.GONE
                 }
             }
         })
