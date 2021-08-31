@@ -40,12 +40,17 @@
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
+
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/popularRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_marginHorizontal="10dp"
                     tools:listitem="@layout/movie_recycler_item" />
+
+
+
 
 
                 <TextView

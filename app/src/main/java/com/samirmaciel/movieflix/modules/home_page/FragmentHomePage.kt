@@ -3,9 +3,11 @@ package com.samirmaciel.movieflix.modules.home_page
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.samirmaciel.movieflix.R
 import com.samirmaciel.movieflix.databinding.FragmentHomeBinding
 import com.samirmaciel.movieflix.modules.bottomsheetdetail_page.BottomSheetDetail
@@ -42,18 +44,26 @@ class FragmentHomePage : Fragment(R.layout.fragment_home) {
     override fun onStart() {
         super.onStart()
 
+        viewModel.popularPage = 1
+        viewModel.upcomingPage = 1
+        viewModel.ratedPage = 1
 
         viewModel.popularList.observe(this) { list ->
-            mPopularAdapterApi.list = list
-            mPopularAdapterApi.notifyDataSetChanged()
+            var positionList = mPopularAdapterApi.list.size
+            mPopularAdapterApi.list.addAll(list)
+            mPopularAdapterApi.notifyItemInserted(positionList)
+        }
+
+        viewModel.slideList.observe(this){ list ->
+            mPagerSliderAdapter.setListSliders(list)
+            mPagerSliderAdapter.notifyDataSetChanged()
         }
 
         viewModel.topratedList.observe(this) {  list ->
             if(list.size > 0){
-                mToprateAdapterApi.list = list
-                mPagerSliderAdapter.setListSliders(list)
-                mPagerSliderAdapter.notifyDataSetChanged()
-                mToprateAdapterApi.notifyDataSetChanged()
+                var positionList = mToprateAdapterApi.list.size
+                mToprateAdapterApi.list.addAll(list)
+                mToprateAdapterApi.notifyItemInserted(positionList)
             }else{
                 Toast.makeText(requireContext(), "Sem conexão com a internet", Toast.LENGTH_SHORT).show()
             }
@@ -61,10 +71,42 @@ class FragmentHomePage : Fragment(R.layout.fragment_home) {
         }
 
         viewModel.upcomingList.observe(this){ list ->
-            mUpcomingAdapterApi.list = list
-            mUpcomingAdapterApi.notifyDataSetChanged()
+            var positionList = mUpcomingAdapterApi.list.size
+            mUpcomingAdapterApi.list.addAll(list    )
+            mUpcomingAdapterApi.notifyItemInserted(positionList)
 
         }
+
+        binding.popularRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if(!binding.popularRecycler.canScrollHorizontally(1)){
+                    viewModel.updatePopularList(viewModel.popularPage)
+                }
+            }
+        })
+
+        binding.topraredRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if(!binding.topraredRecycler.canScrollHorizontally(1)){
+                    viewModel.updateTopratedList(viewModel.ratedPage)
+                }
+            }
+        })
+
+        binding.upcomingRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if(!binding.upcomingRecycler.canScrollHorizontally(1)){
+                    viewModel.updateUpcomingList(viewModel.upcomingPage)
+                }
+            }
+        })
+
 
         timer.scheduleAtFixedRate(SliderTimer(this), 4000, 6000)
 

@@ -19,21 +19,32 @@ class HomeViewModel(private val repository: MovieRepositoryApiInterface) : ViewM
     val popularList = MutableLiveData<MutableList<MovieEntityApi>>()
     val topratedList = MutableLiveData<MutableList<MovieEntityApi>>()
     val upcomingList = MutableLiveData<MutableList<MovieEntityApi>>()
+    val slideList = MutableLiveData<MutableList<MovieEntityApi>>()
+
+    var popularPage = 1
+    var ratedPage = 1
+    var upcomingPage = 1
+    var pageLimit = 1000
 
     init {
-        updatePopularList()
-        updateTopratedList()
-        updateUpcomingList()
+        updateSlideList(1)
+        updatePopularList(popularPage)
+        updateTopratedList(ratedPage)
+        updateUpcomingList(upcomingPage)
     }
 
-    fun updatePopularList() {
+    fun updatePopularList(page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getPopularMovies().enqueue(object : Callback<MovieResponse> {
+            repository.getPopularMovies(page).enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(
                     call: Call<MovieResponse>,
                     response: Response<MovieResponse>
                 ) {
-                    popularList.postValue(response.body()?.movieList)
+                    if(popularPage < pageLimit){
+                        popularPage++
+                        popularList.postValue(response.body()?.movieList)
+                    }
+
                 }
 
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
@@ -44,14 +55,15 @@ class HomeViewModel(private val repository: MovieRepositoryApiInterface) : ViewM
     }
 
 
-    fun updateTopratedList() {
+    fun updateSlideList(page : Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getRatedMovies().enqueue(object : Callback<MovieResponse> {
+            repository.getRatedMovies(page).enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(
                     call: Call<MovieResponse>,
                     response: Response<MovieResponse>
                 ) {
-                    topratedList.postValue(response.body()?.movieList)
+                    slideList.postValue(response.body()?.movieList)
+
                 }
 
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
@@ -62,14 +74,43 @@ class HomeViewModel(private val repository: MovieRepositoryApiInterface) : ViewM
         }
     }
 
-    fun updateUpcomingList(){
-        viewModelScope.launch {
-            repository.getUpcomingMovies().enqueue(object : Callback<MovieResponse>{
+
+
+
+    fun updateTopratedList(page : Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getRatedMovies(page).enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(
                     call: Call<MovieResponse>,
                     response: Response<MovieResponse>
                 ) {
-                    upcomingList.postValue(response.body()?.movieList)
+                    if(ratedPage < pageLimit){
+                        ratedPage++
+                        topratedList.postValue(response.body()?.movieList)
+                    }
+
+                }
+
+                override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                    val list : MutableList<MovieEntityApi> = ArrayList()
+                    topratedList.postValue(list)
+                }
+            })
+        }
+    }
+
+    fun updateUpcomingList(page : Int){
+        viewModelScope.launch {
+            repository.getUpcomingMovies(page).enqueue(object : Callback<MovieResponse>{
+                override fun onResponse(
+                    call: Call<MovieResponse>,
+                    response: Response<MovieResponse>
+                ) {
+                    if(upcomingPage < pageLimit){
+                        upcomingPage++
+                        upcomingList.postValue(response.body()?.movieList)
+                    }
+
                 }
 
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
