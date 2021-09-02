@@ -10,7 +10,6 @@ Design desenvolvido por mim mesmo. Link para o figma abaixo 👇👇
 
 [![MOVIEFLIX](https://img.shields.io/badge/MOVIEFLIX-FIGMA-black.svg?style=for-the-badge&logo=figma)](https://www.figma.com/file/KJkayBa4L4vMKpvVagn9aN/MovieFlix?node-id=0%3A1)
 
-
 ## Desenvolvido com 🛠
 - [Kotlin](https://kotlinlang.org/) - Linguagem oficial para desenvolvimento Android.
 - [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - Para processos assíncronos.
@@ -20,6 +19,7 @@ Design desenvolvido por mim mesmo. Link para o figma abaixo 👇👇
 - [Lottie](https://github.com/LottieFiles/lottie-android) - Para inserção de animações JSON.
 - [Picasso](https://square.github.io/picasso/) - Biblioteca para carregamento de imagens via http.
 - [Retrofit2](https://square.github.io/retrofit/) - Uma das mais poderosas e populares bibliotecas de HTTP Client para Android.
+- [TMDB-API](https://www.themoviedb.org/documentation/api) - The Movie Database (conhecido como TMDb) é uma base de dados grátis e de código aberto sobre Filmes e Séries de TV. 
 
 
 <br />
