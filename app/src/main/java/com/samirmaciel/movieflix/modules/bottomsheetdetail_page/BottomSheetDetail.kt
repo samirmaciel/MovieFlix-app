@@ -84,11 +84,14 @@ class BottomSheetDetail : BottomSheetDialogFragment() {
 
         viewModel.castMovieList.observe(this){
             var actorsList : MutableList<ActorModel> = arrayListOf()
-            for(actor in it){
-                if(actor.known_for_department.equals("Acting") && actor.profile_path != null){
-                    actorsList.add(actor)
+            if(it != null){
+                for(actor in it){
+                    if(actor.known_for_department.equals("Acting") && actor.profile_path != null){
+                        actorsList.add(actor)
+                    }
                 }
             }
+
             actorsRecyclerAdapter.list = actorsList
             actorsRecyclerAdapter.notifyDataSetChanged()
         }

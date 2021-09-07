@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.GridLayout
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.activityViewModels
@@ -40,19 +41,10 @@ class FragmentSearchPage : Fragment(R.layout.fragment_search){
     override fun onStart() {
         super.onStart()
 
-        binding.inputSearchText.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        binding.inputSearchText.doOnTextChanged { text, start, before, count ->
+            viewModel.searchMovie(text.toString())
+        }
 
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                viewModel.searchMovie(s.toString())
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-        })
 
         viewModel.movieList.observe(this){ list ->
             var movieList : MutableList<MovieEntityApi> = ArrayList()
@@ -61,16 +53,12 @@ class FragmentSearchPage : Fragment(R.layout.fragment_search){
                     if(list[movie].poster != null){
                         movieList.add(list[movie])
                     }
-
                 }
                 recyclerAdapter.list = movieList
                 recyclerAdapter.notifyDataSetChanged()
             }
-
         }
     }
-
-
 
     private fun initRecyclerView(){
         recyclerAdapter = MoviesRecyclerAdapterApi {
